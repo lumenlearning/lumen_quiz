@@ -1,0 +1,37 @@
+{
+  "name": "lumen_quiz",
+  "version": "1.0.0",
+  "description": "Simple quiz creation interface for teachers",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --watch-poll --inline --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "lumen_quiz"
+  },
+  "author": "Andrew Haupt and Jennifer Bell",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^2.3.2",
+    "history": "^1.17.0",
+    "node-sass": "^3.4.2",
+    "re-base": "^1.3.1",
+    "react": "^0.14.3",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.3",
+    "reactfire": "^0.5.1",
+    "sass-loader": "^3.1.2",
+    "css-loader": "~0.23.1",
+    "style-loader": "~0.13.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
