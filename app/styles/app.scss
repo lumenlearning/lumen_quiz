@@ -1,5 +1,15 @@
+.html, body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
 .bar-top {
-  height: 10rem;
   width: 100%;
-  color: #333;
+  background: rgba(75, 191, 107, 1);
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: 600;
+  color: #fff;
 }
