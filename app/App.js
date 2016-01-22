@@ -1,23 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/app.scss'
+import { Router } from 'react-router';
+import {createHistory} from 'history';
+import routes from './config/routes.js';
+import Bootstrap from 'react-bootstrap';
+import './styles/app.scss';
 
-export default class App extends React.Component {
-  render () {
-    return (
-      <div className="main-container">
-        <div className="bar-top">
-          <span>Quiz Builder</span>
-        </div>
-        <div className="container">
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-)
+ReactDOM.render(<Router history={createHistory()}>{routes}</Router>, document.getElementById('app'))
