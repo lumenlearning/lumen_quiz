@@ -17,7 +17,7 @@ export default class NotFound extends React.Component {
 export default (
   <Route path="/" component={Main}>
     <IndexRoute component={Home} />
-    <Route path="quiz" component={Questions} >
+    <Route path="quizzes/:quiz_id" component={Questions} >
       <Route path="preview" component={Preview} />
     </Route>
     <Route path="*" component={NotFound} />
