@@ -1,24 +1,21 @@
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
-  entry: "./app/App.js",
+  entry: "./client/App.js",
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "bundle.js"
+    filename: "./server/assets/bundle.js"
   },
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015'],
-          cacheDirectory: true
-        }
+        loader: 'babel'
       },
       {
         test: /\.scss$/,
@@ -26,14 +23,11 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    inline: true,
-    port: 3000,
-    historyApiFallback: true,
-    contentBase: '/Users/andrewhaupt/Desktop/lumen_quiz/build',
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    }
-  }
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
+      }
+    })
+  ]
 }

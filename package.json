@@ -2,7 +2,7 @@
   "name": "lumen_quiz",
   "version": "1.0.0",
   "description": "Simple quiz creation interface for teachers",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
@@ -25,7 +25,9 @@
     "react-router": "^1.0.3",
     "reactfire": "^0.5.1",
     "sass-loader": "^3.1.2",
-    "style-loader": "~0.13.0"
+    "style-loader": "~0.13.0",
+    "hapi": "^11.1.1",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.13",
