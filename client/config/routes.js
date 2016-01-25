@@ -1,7 +1,6 @@
 import React from 'react';
 import Main from '../components/Main';
 import CreateQuiz from '../components/CreateQuiz';
-import AddQuestion from '../components/AddQuestion';
 import Preview from '../components/Preview';
 import QuestionsContainer from '../components/QuestionsContainer';
 import {createHistory} from 'history';

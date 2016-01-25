@@ -10,7 +10,7 @@ export default class QuestionsContainer extends React.Component {
     this.state = {
       quizID: this.props.params.quiz_id,
       quizName: {},
-      questions: []
+      questions: {}
     }
   }
 
@@ -20,7 +20,8 @@ export default class QuestionsContainer extends React.Component {
       state: 'name',
       then(data){
         this.setState({
-          name: data.name
+          quizName: data.name,
+          questions: data.questions
         })
       }
     });
@@ -40,9 +41,18 @@ export default class QuestionsContainer extends React.Component {
   }
 
   addQuestion(question) {
-    console.log(question)
     base.push(`${this.state.quizID}/questions`, {
       data: {question}
+    });
+    base.fetch(this.state.quizID, {
+      context: this,
+      state: 'name',
+      then(data){
+        this.setState({
+          quizName: data.name,
+          questions: data.questions
+        })
+      }
     });
   }
 }
