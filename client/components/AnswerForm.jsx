@@ -10,6 +10,18 @@ export default class AddAnswer extends React.Component {
     }
   }
 
+  componentDidMount() {
+    base.fetch(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers/`, {
+      context: this,
+      state: 'name',
+      then(data){
+        this.setState({
+          quizName: data.name
+        })
+      }
+    });
+  }
+
   setAnswerRef(ref){
     this.answer = ref;
   }
@@ -19,8 +31,13 @@ export default class AddAnswer extends React.Component {
       <fieldset>
         <label htmlFor='answer'></label>
         <input type='text' placeholder="Enter an answer" value={this.state.value} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAddAnswer()} />
+        <button onClick={() => this.deleteAnswerField()}>x</button>
       </fieldset>
     )
+  }
+
+  deleteAnswerField() {
+
   }
 
   handleAddAnswer() {

@@ -10,13 +10,13 @@ export default class AddQuestion extends React.Component {
     this.state = {
       answers: [],
       answerCount: 1,
-      content: ''
+      content: '',
+      quizName: ''
     }
   }
 
   componentDidMount(){
-    const content = this.state.content
-    base.fetch(this.state.quizID, {
+    base.fetch(this.props.params.quiz_id, {
       context: this,
       state: 'name',
       then(data){
@@ -24,6 +24,11 @@ export default class AddQuestion extends React.Component {
           quizName: data.name
         })
       }
+    });
+    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers`, {
+      context: this,
+      state: 'answers',
+      asArray: true
     });
   }
 
@@ -33,8 +38,8 @@ export default class AddQuestion extends React.Component {
 
   answerFields() {
     var answers = []
-    for (var i = 0; i < this.state.answerCount; i++) {
-      answers.push(<AnswerForm key={i} id={i} handleAddAnswer={(answer) => this.addAnswer(answer)} />  )
+    for (var i = 0; i < this.state.answers.length; i++) {
+      answers.push(<AnswerForm handleCreateAnswer={(answer) => this.createAnswer(answer)} />  )
     }
     return answers
   }
@@ -42,13 +47,14 @@ export default class AddQuestion extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add Questions</h2>
+        <h2>Add Questions to {this.state.quizName}</h2>
         <fieldset>
           <label htmlFor='question'></label>
           <textarea type='text' placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
           {this.answerFields()}   
-          <button bsStyle="primary" onClick={() => this.handleAddQuestion()}>ADD QUESTION</button>
+          <button onClick={() => this.addAnswerField()}>+</button><br />
+          <button onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
         </fieldset>
       </div>
     )
@@ -60,7 +66,9 @@ export default class AddQuestion extends React.Component {
     this.props.handleAddQuestion(newQuestion)
   }
 
-  addAnswer(answer) {
-
+  addAnswerField() {
+    base.push(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers`, {
+      data: {content: ''}
+    });
   }
 }
