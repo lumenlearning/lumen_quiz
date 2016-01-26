@@ -9,7 +9,6 @@ export default class AddQuestion extends React.Component {
     super(props);
     this.state = {
       answers: [],
-      answerCount: 1,
       content: '',
       quizName: ''
     }
@@ -39,7 +38,15 @@ export default class AddQuestion extends React.Component {
   answerFields() {
     var answers = []
     for (var i = 0; i < this.state.answers.length; i++) {
-      answers.push(<AnswerForm id={this.state.answers[i].key} deleteAnswerField={(id) =>this.deleteAnswerField(id)}handleCreateAnswer={(answer) => this.createAnswer(answer)} />  )
+      answers.push(
+        <AnswerForm 
+          key={this.state.answers[i].key}
+          quiz_id={this.props.params.quiz_id} 
+          question_id = {this.props.params.question_id}
+          id={this.state.answers[i].key} 
+          deleteAnswerField={(id) => this.deleteAnswerField(id)} 
+        />
+      )
     }
     return answers
   }
@@ -48,14 +55,12 @@ export default class AddQuestion extends React.Component {
     return (
       <div>
         <h2>Add Questions to {this.state.quizName}</h2>
-        <fieldset>
           <label htmlFor='question'></label>
           <textarea type='text' className="form-control" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
           {this.answerFields()}   
           <button onClick={() => this.addAnswerField()}>+</button><br />
           <button className="btn btn-success" onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
-        </fieldset>
       </div>
     )
   }
