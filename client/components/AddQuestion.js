@@ -45,10 +45,10 @@ export default class AddQuestion extends React.Component {
         <h2>Add Questions</h2>
         <fieldset>
           <label htmlFor='question'></label>
-          <textarea type='text' placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
+          <textarea type='text' className="form-control" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
-          {this.answerFields()}   
-          <button bsStyle="primary" onClick={() => this.handleAddQuestion()}>ADD QUESTION</button>
+          {this.answerFields()}
+          <button className="btn btn-success" onClick={() => this.handleAddQuestion()}>ADD QUESTION</button>
         </fieldset>
       </div>
     )
