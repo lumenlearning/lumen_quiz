@@ -7,13 +7,13 @@ const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 export default class CreateQuiz extends React.Component {
   render() {
     return (
-      <div className="container">
+      <div>
         <h2>Quiz Title</h2>
         <fieldset>
           <label htmlFor='title'></label>
-          <input type='text' id='title' ref={(ref) => this.setRef(ref)}/>
+          <input type='text' className="form-control" id='title' ref={(ref) => this.setRef(ref)}/>
           <br />
-          <button bsStyle="primary" onClick={() => this.handleSubmit()} >Add Questions</button>
+          <button type="btn" className="btn btn-success" onClick={() => this.handleSubmit()} >Add Questions</button>
         </fieldset>
       </div>
     )

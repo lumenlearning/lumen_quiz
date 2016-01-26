@@ -50,11 +50,11 @@ export default class AddQuestion extends React.Component {
         <h2>Add Questions to {this.state.quizName}</h2>
         <fieldset>
           <label htmlFor='question'></label>
-          <textarea type='text' placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
+          <textarea type='text' className="form-control" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
           {this.answerFields()}   
           <button onClick={() => this.addAnswerField()}>+</button><br />
-          <button onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
+          <button className="btn btn-success" onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
         </fieldset>
       </div>
     )

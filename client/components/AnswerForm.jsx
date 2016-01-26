@@ -30,7 +30,7 @@ export default class AddAnswer extends React.Component {
     return (
       <fieldset>
         <label htmlFor='answer'></label>
-        <input type='text' placeholder="Enter an answer" value={this.state.value} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAddAnswer()} />
+        <input type='text' className="form-control" placeholder="Enter an answer" value={this.state.value} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAddAnswer()} />
         <button onClick={() => this.deleteAnswerField()}>x</button>
       </fieldset>
     )
