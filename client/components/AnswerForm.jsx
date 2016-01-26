@@ -28,11 +28,13 @@ export default class AddAnswer extends React.Component {
     return (
       <div>
         <label htmlFor='answer'></label>
-        <input type='text' className="form-control" placeholder="Enter an answer" value={this.state.content} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAnswer()} />
-        <button onClick={() => this.deleteAnswerField()}>x</button>
+        <input type='text' className="style1" placeholder="Enter an answer" value={this.state.content} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAnswer()} />
+        <button className="btn1" onClick={() => this.deleteAnswerField()}>x</button>
       </div>
     )
   }
+
+
 
   deleteAnswerField() {
     this.props.deleteAnswerField(this.props.id);

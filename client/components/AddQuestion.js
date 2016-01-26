@@ -54,13 +54,17 @@ export default class AddQuestion extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add Questions to {this.state.quizName}</h2>
+        <h2>{this.state.quizName}</h2>
+        <h4>Enter your question below, followed by the answers.</h4>
           <label htmlFor='question'></label>
-          <textarea type='text' className="form-control" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
+          <textarea type='text' className="style2" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
+          <h4>Click on the '+' symbol to add another answer to this question. Click on the 'x' to delete it.</h4>
           {this.answerFields()}
-          <button onClick={() => this.addAnswerField()}>+</button><br />
-          <button className="btn btn-danger" onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
+          
+          <button className="btn1" onClick={() => this.addAnswerField()}>+</button><br /><br />
+
+          <button className="btn2" onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
       </div>
     )
   }
