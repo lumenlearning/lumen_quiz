@@ -39,7 +39,7 @@ export default class AddQuestion extends React.Component {
   answerFields() {
     var answers = []
     for (var i = 0; i < this.state.answers.length; i++) {
-      answers.push(<AnswerForm handleCreateAnswer={(answer) => this.createAnswer(answer)} />  )
+      answers.push(<AnswerForm id={this.state.answers[i].key} deleteAnswerField={(id) =>this.deleteAnswerField(id)}handleCreateAnswer={(answer) => this.createAnswer(answer)} />  )
     }
     return answers
   }
@@ -61,9 +61,13 @@ export default class AddQuestion extends React.Component {
   }
 
   handleAddQuestion() {
-    var newQuestion = this.question.value;
-    this.question.value = '';
-    this.props.handleAddQuestion(newQuestion)
+
+  }
+
+  deleteAnswerField(id) {
+    this.setState({
+      answers: this.state.answers.filter((obj) => {return obj.key !== id})
+    })
   }
 
   addAnswerField() {

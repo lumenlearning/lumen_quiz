@@ -10,18 +10,6 @@ export default class AddAnswer extends React.Component {
     }
   }
 
-  componentDidMount() {
-    base.fetch(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers/`, {
-      context: this,
-      state: 'name',
-      then(data){
-        this.setState({
-          quizName: data.name
-        })
-      }
-    });
-  }
-
   setAnswerRef(ref){
     this.answer = ref;
   }
@@ -37,7 +25,7 @@ export default class AddAnswer extends React.Component {
   }
 
   deleteAnswerField() {
-
+    this.props.deleteAnswerField(this.props.id);
   }
 
   handleAddAnswer() {
