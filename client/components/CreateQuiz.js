@@ -26,9 +26,20 @@ export default class CreateQuiz extends React.Component {
   handleSubmit() {
     const quizName = this.quizNameRef.value;
     const quizID = uuid.v4();
+    var questionID = '';
     base.post(quizID, {
       data: {name: quizName}
     });
-    this.props.history.pushState(null, "/quizzes/" + quizID)
+    base.push(`${quizID}/questions`, {
+      data: {content: ''}
+    });
+    base.fetch(`${quizID}`, {
+      context: this,
+      state: 'questions',
+      then(data){
+        questionID = Object.keys(data.questions)[0]
+      }
+    });
+    this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
   }
 }
