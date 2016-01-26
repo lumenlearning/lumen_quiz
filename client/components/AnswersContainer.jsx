@@ -37,7 +37,12 @@ export default class AddQuestion extends React.Component {
   }
 
   render() {
-    return <div> {this.answerFields()} </div>
+    return (
+      <div> 
+        {this.answerFields()} 
+        <button onClick={() => this.addAnswerField()}>+</button><br />
+      </div>
+    )
   }
 
   deleteAnswerField(id) {
@@ -47,7 +52,7 @@ export default class AddQuestion extends React.Component {
   }
 
   addAnswerField() {
-    base.push(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers`, {
+    base.push(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
       data: {content: ''}
     });
   }

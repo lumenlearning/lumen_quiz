@@ -36,6 +36,22 @@ export default class AddQuestion extends React.Component {
     this.question = ref;
   }
 
+  answerFields() {
+    var answers = []
+    for (var i = 0; i < this.state.answers.length; i++) {
+      answers.push(
+        <AnswerForm
+          key={this.state.answers[i].key}
+          quiz_id={this.props.params.quiz_id}
+          question_id = {this.props.params.question_id}
+          id={this.state.answers[i].key}
+          deleteAnswerField={(id) => this.deleteAnswerField(id)}
+        />
+      )
+    }
+    return answers
+  }
+
   render() {
     return (
       <div>
@@ -44,8 +60,8 @@ export default class AddQuestion extends React.Component {
         <textarea onChange ={() => this.handleQuestion()} type='text' className="form-control" placeholder="Enter a question" value={this.state.content} id='question' ref={(ref) => this.setQuestionRef(ref)}/>
         <br />
         < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.props.params.question_id}/>
-        <button onClick={() => this.addAnswerField()}>+</button><br />
         <button className="btn btn-success" onClick={() => this.submitQuestion()}>CREATE QUESTION</button>
+
       </div>
     )
   }

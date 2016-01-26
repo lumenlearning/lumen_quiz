@@ -11,9 +11,9 @@ export default class CreateQuiz extends React.Component {
         <h2>Quiz Title</h2>
         <fieldset>
           <label htmlFor='title'></label>
-          <input type='text' className="form-control" id='title' ref={(ref) => this.setRef(ref)}/>
+          <input type='text' className="form-control" placeholder="Enter a title" id='title' ref={(ref) => this.setRef(ref)}/>
           <br />
-          <button type="btn" className="btn btn-success" onClick={() => this.handleSubmit()} >Add Questions</button>
+          <button type="btn" className="btn btn-danger" onClick={() => this.handleSubmit()} >Add Questions</button>
         </fieldset>
       </div>
     )
