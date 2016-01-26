@@ -1,5 +1,5 @@
 import React from 'react';
-import AnswerForm from './AnswerForm.jsx';
+import AnswersContainer from './AnswersContainer.jsx';
 import Rebase from 're-base';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
@@ -24,11 +24,12 @@ export default class AddQuestion extends React.Component {
         })
       }
     });
-    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers`, {
+    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/content`, {
       context: this,
-      state: 'answers',
-      asArray: true
+      state: 'content',
+      asArray: false
     });
+
   }
 
   setQuestionRef(ref){
@@ -57,31 +58,22 @@ export default class AddQuestion extends React.Component {
         <h2>{this.state.quizName}</h2>
         <h4>Enter your question below, followed by the answers.</h4>
           <label htmlFor='question'></label>
-          <textarea type='text' className="style2" placeholder="Enter a question" id='question' ref={(ref) => this.setQuestionRef(ref)}/>
+          <textarea onChange ={() => this.handleQuestion()} type='text' className="style2" placeholder="Enter a question" value={this.state.content} id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
-          <h4>Click on the '+' symbol to add another answer to this question. Click on the 'x' to delete it.</h4>
-          {this.answerFields()}
-          
-          <button className="btn1" onClick={() => this.addAnswerField()}>+</button><br /><br />
-
-          <button className="btn2" onClick={() => this.handleAddQuestion()}>CREATE QUESTION</button>
+          < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.props.params.question_id}/>
+          <button className="btn2" onClick={() => this.submitQuestion()}>CREATE QUESTION</button>
       </div>
     )
   }
 
-  handleAddQuestion() {
+  submitQuestion() {
 
   }
 
-  deleteAnswerField(id) {
+  handleQuestion() {
     this.setState({
-      answers: this.state.answers.filter((obj) => {return obj.key !== id})
+      content: this.question.value
     })
   }
 
-  addAnswerField() {
-    base.push(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}/answers`, {
-      data: {content: ''}
-    });
-  }
 }
