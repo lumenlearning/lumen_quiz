@@ -12,11 +12,22 @@ export default class QuestionContent extends React.Component {
   }
 
   componentDidMount(){
-    base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/content`, {
+    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/content`, {
       context: this,
       state: 'content',
       asArray: false
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.question_id !== nextProps.question_id) {
+      base.removeBinding(this.ref);
+      this.ref = base.syncState(`${this.props.quiz_id}/questions/${nextProps.question_id}/content`, {
+        context: this,
+        state: 'content',
+        asArray: false
+      });
+    }
   }
 
   setQuestionRef(ref){

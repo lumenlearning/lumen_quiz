@@ -35,7 +35,7 @@ export default class CreateQuiz extends React.Component {
       context: this,
       state: 'questions',
       then(data){
-        questionID = Object.keys(data.questions)[0]
+        questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
       }
     });
     base.push(`${quizID}/questions/${questionID}/answers`, {

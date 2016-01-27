@@ -2,6 +2,8 @@ import React from 'react';
 import QuestionContent from './QuestionContent.jsx'
 import AnswersContainer from './AnswersContainer.jsx';
 import Rebase from 're-base';
+import { State } from 'react-router'
+
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -10,7 +12,6 @@ export default class Question extends React.Component {
     super(props);
     this.state = {
       answers: [],
-      content: '',
       quizName: '',
       question_id: this.props.params.question_id
     }
@@ -26,36 +27,14 @@ export default class Question extends React.Component {
         })
       }
     });
-    this.ref = base.syncState(`${this.props.params.quiz_id}/questions/${this.state.question_id}`, {
-      context: this,
-      state: 'content',
-      asArray: false
-    });
   }
 
-  componentWillReceveProps(obj) {
-    base.removeBinding(this.ref);
-    this.ref = base.syncState(`${this.props.params.quiz_id}/questions/${this.state.question_id}`, {
-      context: this,
-      state: 'content',
-      asArray: false
-    });
-  }
-
-  answerFields() {
-    var answers = []
-    for (var i = 0; i < this.state.answers.length; i++) {
-      answers.push(
-        <AnswerForm
-          key={this.state.answers[i].key}
-          quiz_id={this.props.params.quiz_id}
-          question_id = {this.state.question_id}
-          id={this.state.answers[i].key}
-          deleteAnswerField={(id) => this.deleteAnswerField(id)}
-        />
-      )
+  componentWillReceiveProps(nextProps) {
+    if (this.state.question_id !== nextProps.params.question_id) {
+      this.setState({
+        question_id: nextProps.params.question_id
+      })
     }
-    return answers
   }
 
   render() {
@@ -85,9 +64,6 @@ export default class Question extends React.Component {
           data: {content: ''}
         });
         this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
-        this.setState({
-          question_id: questionID
-        })
       }
     });
   }
