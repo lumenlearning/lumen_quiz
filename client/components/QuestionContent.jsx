@@ -41,8 +41,8 @@ export default class QuestionContent extends React.Component {
           toolbar: 'undo redo | bold italic | alignleft aligncenter alignright'
         }}
         onChange ={(e) => this.handleQuestion(e)}
-        onBlur ={(e) => this.handleQuestion(e)}  
-        className="form-control" 
+        onBlur ={(e) => this.handleQuestion(e)}
+        className="form-control"
       />
       </div>
     )

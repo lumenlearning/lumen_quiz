@@ -3,6 +3,8 @@ import QuestionContent from './QuestionContent.jsx'
 import AnswersContainer from './AnswersContainer.jsx';
 import Rebase from 're-base';
 import { State } from 'react-router'
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
@@ -40,11 +42,13 @@ export default class Question extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add Questions to {this.state.quizName}</h2>
+        <h2>{this.state.quizName}</h2>
+        <h5>Add your question below.</h5>
         < QuestionContent quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id} />
         <br />
-        < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id}/>
-        <button className="btn btn-success" onClick={() => this.submitQuestion()}>CREATE QUESTION</button>
+          <h5>To add another question click on the +. To Delete an answer, click on the x. </h5>
+        < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id}/><br />
+        <RaisedButton label="Add Question" secondary={true} onClick={() => this.submitQuestion()} />
       </div>
     )
   }
