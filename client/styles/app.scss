@@ -8,7 +8,7 @@
 
 .bar-top {
   width: 100%;
-  background: rgb(75, 191, 107);
+  background: #50B948;
   font-size: 2rem;
   text-align: center;
   padding: 1rem 0;
@@ -21,6 +21,31 @@
   background-color: #EEEEEE;
   margin: 20px;
   padding: 15px;
-  border-radius: 10px;
   width: auto;
+}
+
+.style1, input{
+  border: 1px solid #b7bbbd;
+  padding: 4px;
+  height: 20px;
+  width: 40%;
+}
+
+.style2, input{
+  border: 1px solid #b7bbbd;
+  padding: 4px;
+  height: 80px;
+  width: 60%;
+}
+
+.btn1, button{
+  height: 30px;
+  width: 30px;
+  font-weight: 700;
+
+}
+
+.btn2, button{
+  height: 30px;
+  width: 100px;
 }
