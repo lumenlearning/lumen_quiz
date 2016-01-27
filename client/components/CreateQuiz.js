@@ -2,6 +2,7 @@ import React from 'react';
 import Rebase from 're-base';
 import uuid from 'node-uuid';
 import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -21,7 +22,7 @@ constructor(props, context) {
           <TextField hintText="Enter a title" errorText={this.state.errorText} id='title' ref={"quizTitle"} />
           <br />
           <br />
-          <button className="btn2" onClick={() => this.handleSubmit()} >Add Questions</button>
+          <RaisedButton label="Add Questions" secondary={true} onClick={() => this.handleSubmit()} />
       </div>
     )
   }
