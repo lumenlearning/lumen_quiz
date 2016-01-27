@@ -21,7 +21,8 @@ module.exports = {
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass'],
       }
-    ]
+    ],
+    noParse: /node_modules\/quill\/dist/
   },
   plugins: [
     new webpack.DefinePlugin({
