@@ -25,7 +25,7 @@ export default class CreateQuiz extends React.Component {
   handleSubmit() {
     const quizName = this.quizNameRef.value;
     const quizID = uuid.v4();
-    var questionID = '';
+    var questionID;
     base.post(quizID, {
       data: {name: quizName}
     });

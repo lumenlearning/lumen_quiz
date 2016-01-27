@@ -2,9 +2,9 @@ import React from 'react';
 import Main from '../components/Main';
 import CreateQuiz from '../components/CreateQuiz';
 import Preview from '../components/Preview';
-import AddQuestion from '../components/AddQuestion';
+import Question from '../components/Question';
 import {createHistory} from 'history';
-import { Route, IndexRoute, Router } from 'react-router';
+import { Route, IndexRoute, Router, RouterContext } from 'react-router';
 
 export default class NotFound extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default (
   <Router history={createHistory()}>
     <Route path="/" component={Main}>
       <IndexRoute component={CreateQuiz} />
-      <Route path="quizzes/:quiz_id/questions/:question_id" component={AddQuestion} />
+      <Route path="quizzes/:quiz_id/questions/:question_id" component={Question} />
       <Route path="*" component={NotFound} />
     </Route>
   </Router>
