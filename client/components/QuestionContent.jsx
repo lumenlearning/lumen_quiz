@@ -18,8 +18,6 @@ export default class QuestionContent extends React.Component {
       state: 'content',
       asArray: false
     });
-        debugger;
-    tinymce.EditorManager.get('react-tinymce-0').setContent(nextProps.content)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +41,8 @@ export default class QuestionContent extends React.Component {
             toolbar: ' bold italic | image media link | table | preview',
             menubar: false,
             media_live_embeds: true,
-            selector: 'div#tinymice'
+            selector: 'div#tinymice',
+            content_css : '../styles/app.scss'
           }}
           onChange ={(e) => this.handleQuestion(e)}
           onBlur ={(e) => this.handleQuestion(e)}  
@@ -54,7 +53,6 @@ export default class QuestionContent extends React.Component {
   }
 
   handleQuestion(e) {
-    debugger;
     this.setState({
       content: e.target.getContent()
     })

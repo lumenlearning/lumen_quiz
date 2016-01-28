@@ -53,10 +53,14 @@ export default class AddQuestion extends React.Component {
     return (
       <div>
         {this.answerFields()}
-        <FloatingActionButton mini={true} secondary={true} onClick={() => this.addAnswerField()}>
+        <br /><br />
+        <FloatingActionButton 
+          mini={true} 
+          backgroundColor={'#4bbf6b'}
+          labelColor={'#fff'} 
+          onClick={() => this.addAnswerField()}>
           <ContentAdd />
         </FloatingActionButton><br /><br />
-        <hr />
       </div>
     )
   }

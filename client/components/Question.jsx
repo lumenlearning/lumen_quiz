@@ -46,9 +46,14 @@ export default class Question extends React.Component {
         <h5>Add your question below.</h5>
         < QuestionContent quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id} />
         <br />
-          <h5>To add another question click on the +. To Delete an answer, click on the x. </h5>
+          <h5>To add another answer field click on the +. To Delete an answer, click on the x. </h5>
         < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id}/><br />
-        <RaisedButton label="Add Question" secondary={true} onClick={() => this.submitQuestion()} />
+        <RaisedButton 
+          label="Add Question" 
+          onClick={() => this.submitQuestion()} 
+          backgroundColor={'#4bbf6b'}
+          labelColor={'#fff'}
+        />
       </div>
     )
   }
