@@ -60,7 +60,7 @@ export default class AddQuestion extends React.Component {
           <label htmlFor='question'></label>
           <textarea onChange ={() => this.handleQuestion()} type='text' className="style2" placeholder="Enter a question" value={this.state.content} id='question' ref={(ref) => this.setQuestionRef(ref)}/>
           <br />
-          <h4>To add another question click on the +. To Delete an answer, click on the x. </h4>
+        
           < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.props.params.question_id}/>
           <button className="btn2" onClick={() => this.submitQuestion()}>CREATE QUESTION</button>
       </div>
