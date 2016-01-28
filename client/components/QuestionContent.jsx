@@ -18,6 +18,8 @@ export default class QuestionContent extends React.Component {
       state: 'content',
       asArray: false
     });
+        debugger;
+    tinymce.EditorManager.get('react-tinymce-0').setContent(nextProps.content)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,22 +35,26 @@ export default class QuestionContent extends React.Component {
 
   render() {
     return (
-      <div>
-      <TinyMCE
-        content={this.state.content}
-        config={{
-          plugins: 'autolink link image lists preview',
-          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright'
-        }}
-        onChange ={(e) => this.handleQuestion(e)}
-        onBlur ={(e) => this.handleQuestion(e)}  
-        className="form-control" 
-      />
+      <div id='tinymice'>
+        <TinyMCE
+          content={this.state.content}
+          config={{
+            plugins: 'link image lists preview table autoresize media preview',
+            toolbar: ' bold italic | image media link | table | preview',
+            menubar: false,
+            media_live_embeds: true,
+            selector: 'div#tinymice'
+          }}
+          onChange ={(e) => this.handleQuestion(e)}
+          onBlur ={(e) => this.handleQuestion(e)}  
+          className="form-control" 
+        />
       </div>
     )
   }
 
   handleQuestion(e) {
+    debugger;
     this.setState({
       content: e.target.getContent()
     })

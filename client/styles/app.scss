@@ -1,6 +1,8 @@
+$primary: rgb(75, 191, 107);
+
 .html, body {
-  font-family: 'Alegreya Sans', sans-serif;
-  font-weight: 400;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
   margin: 0;
   color: #777777;
   background-color: #777777;
@@ -8,7 +10,7 @@
 
 .bar-top {
   width: 100%;
-  background: #00BCD4;
+  background: #4bbf6b;
   font-size: 2rem;
   text-align: center;
   padding: 1rem 0;
@@ -20,32 +22,12 @@
   text-align: center;
   background-color: #EEEEEE;
   margin: 20px;
-  padding: 15px;
+  padding: 20px;
   width: auto;
+  box-shadow: 2px 2px 5px #777;
+  border-radius: 2px;
 }
 
-.style1, input{
-  border: 1px solid #b7bbbd;
-  padding: 4px;
-  height: 20px;
-  width: 40%;
-}
-
-.style2, input{
-  border: 1px solid #b7bbbd;
-  padding: 4px;
-  height: 80px;
-  width: 60%;
-}
-
-.btn1, button{
-  height: 30px;
-  width: 30px;
-  font-weight: 700;
-
-}
-
-.btn2, button{
-  height: 30px;
-  width: 100px;
+input {
+  text-align: center;
 }
