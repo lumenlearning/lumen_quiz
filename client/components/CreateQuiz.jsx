@@ -24,19 +24,19 @@ export default class CreateQuiz extends React.Component {
       <div>
         <h2>Name Your Quiz</h2>
           <label htmlFor='title'></label>
-          <TextField 
-            autoFocus={true} 
-            errorText={this.state.errorText} 
-            id='title' 
-            ref={"quizTitle"}  
-            underlineStyle={{borderColor:'rgba(0,0,0,0.2)'}} 
+          <TextField
+            autoFocus={true}
+            errorText={this.state.errorText}
+            id='title'
+            ref={"quizTitle"}
+            underlineStyle={{borderColor:'rgba(0,0,0,0.2)'}}
             underlineFocusStyle={{borderColor:'#4bbf6b'}}
           />
           <br /><br />
-          <RaisedButton 
-            id="menu-button" 
-            label="Add Questions" 
-            onClick={() => this.handleSubmit()} 
+          <RaisedButton
+            id="menu-button"
+            label="Add Questions"
+            onClick={() => this.handleSubmit()}
             backgroundColor={'#4bbf6b'}
             labelColor={'#fff'}
           />

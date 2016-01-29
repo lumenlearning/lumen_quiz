@@ -11,6 +11,8 @@ export default class AddAnswer extends React.Component {
     this.state = {
       content: ''
     }
+
+    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   componentDidMount(){
@@ -29,7 +31,7 @@ export default class AddAnswer extends React.Component {
     return (
       <div>
         <label htmlFor='answer'></label>
-        <TextField type='text' className="style1" placeholder="Enter an answer" value={this.state.content} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAnswer()} />
+        <TextField value={this.state.content} underlineStyle={{borderColor:'rgba(0,0,0,0.2)'}} underlineFocusStyle={{borderColor:'#4bbf6b'}} ref={(ref) => this.setAnswerRef(ref)} onChange ={this.handleAnswer} />
         <button className="btn1" onClick={() => this.deleteAnswerField()}>x</button>
       </div>
     )
@@ -41,7 +43,15 @@ export default class AddAnswer extends React.Component {
     this.props.deleteAnswerField(this.props.id);
   }
 
+<<<<<<< HEAD
   handleAnswer() {
     console.log(this.answer.value)
+=======
+  handleAnswer(e) {
+    let val = e.target.value
+    this.setState({
+      content: val
+    });
+>>>>>>> 3a3efec9dd779f6785e088eec872d32e4e60d8ba
   }
 }
