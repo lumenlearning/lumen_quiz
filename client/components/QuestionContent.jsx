@@ -1,6 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
-import TinyMCE from 'react-tinymce';
+import TinyMCEInput from 'react-tinymce-input';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -34,27 +34,26 @@ export default class QuestionContent extends React.Component {
   render() {
     return (
       <div id='tinymice'>
-        <TinyMCE
-          content={this.state.content}
-          config={{
+        <TinyMCEInput
+          value={this.state.content}
+          tinymceConfig={{
             plugins: 'link image lists preview table autoresize media preview',
             toolbar: ' bold italic | image media link | table | preview',
             menubar: false,
             media_live_embeds: true,
             selector: 'div#tinymice',
-            content_css : '../styles/app.scss'
+            // statusbar: false
           }}
-          onChange ={(e) => this.handleQuestion(e)}
-          onBlur ={(e) => this.handleQuestion(e)}  
+          onChange ={(text) => this.handleQuestion(text)}
           className="form-control" 
         />
       </div>
     )
   }
 
-  handleQuestion(e) {
+  handleQuestion(text) {
     this.setState({
-      content: e.target.getContent()
+      content: text
     })
   }
 

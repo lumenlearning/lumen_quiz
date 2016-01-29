@@ -28,6 +28,7 @@
     "react-dom": "^0.14.3",
     "react-router": "^1.0.3",
     "react-tinymce": "^0.4.0",
+    "react-tinymce-input": "^1.1.0",
     "reactfire": "^0.5.1",
     "sass-loader": "^3.1.2",
     "style-loader": "~0.13.0",

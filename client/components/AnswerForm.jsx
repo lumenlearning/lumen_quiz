@@ -1,5 +1,6 @@
 import React from 'react';
 import Rebase from 're-base';
+import TextField from 'material-ui/lib/text-field';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -28,7 +29,7 @@ export default class AddAnswer extends React.Component {
     return (
       <div>
         <label htmlFor='answer'></label>
-        <input type='text' className="style1" placeholder="Enter an answer" value={this.state.content} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAnswer()} />
+        <TextField type='text' className="style1" placeholder="Enter an answer" value={this.state.content} ref={(ref) => this.setAnswerRef(ref)} onChange ={() => this.handleAnswer()} />
         <button className="btn1" onClick={() => this.deleteAnswerField()}>x</button>
       </div>
     )
@@ -41,8 +42,6 @@ export default class AddAnswer extends React.Component {
   }
 
   handleAnswer() {
-    this.setState({
-      content: this.answer.value
-    });
+    console.log(this.answer.value)
   }
 }
