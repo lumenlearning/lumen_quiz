@@ -52,3 +52,50 @@ input {
 .mce-container {
   border-radius: 2px;
 }
+
+.custom_tinymce {
+  font-size: 2rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+.mce-last, .mce-path-item, .mce-flow-layout-item, .mce-divider {
+  color: #EEEEEE !important;
+  cursor: default !important;
+}
+
+.answer-wrapper {
+  display: block;
+  margin: auto;
+  width: 100%;
+  position: relative;
+  textarea {
+    width: 80%;
+    max-width: 80%;
+    border: transparent;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    &:focus {
+      outline: 2px solid rgba(75, 191, 107, 0.5);
+      box-shadow:0 0 3px rgba(75, 191, 107, 0.5);
+    }
+  }
+}
+
+@media(max-width:850px) {
+  .answer-wrapper {
+    textarea {
+      width: 70%;
+      max-width: 70%;
+    }
+  }
+}
+
+@media(max-width:550px) {
+  .answer-wrapper {
+    textarea {
+      width: 60%;
+      max-width: 60%;
+    }
+  }
+}

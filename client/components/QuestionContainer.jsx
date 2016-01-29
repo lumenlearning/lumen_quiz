@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionContent from './QuestionContent.jsx'
-import AnswersContainer from './AnswersContainer.jsx';
+import AnswersContainer from './Answers/AnswersContainer.jsx';
 import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
-export default class Question extends React.Component {
+export default class QuestionContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ export default class Question extends React.Component {
       then(data){
         const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
         base.push(`${quizID}/questions/${questionID}/answers`, {
-          data: {content: ''}
+          data: {content:'', correct:false}
         });
         this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
       }

@@ -1,12 +1,12 @@
 import React from 'react';
-import AnswerForm from './AnswerForm.jsx';
+import Answer from './Answer.jsx';
 import Rebase from 're-base';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
-export default class AddQuestion extends React.Component {
+export default class AnswersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,7 @@ export default class AddQuestion extends React.Component {
     var answers = []
     for (var i = 0; i < this.state.answers.length; i++) {
       answers.push(
-        <AnswerForm
+        <Answer 
           key={this.state.answers[i].key}
           quiz_id={this.props.quiz_id}
           question_id = {this.props.question_id}
@@ -73,7 +73,7 @@ export default class AddQuestion extends React.Component {
 
   addAnswerField() {
     base.push(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
-      data: {content: ''}
+      data: {content:'', correct:false}
     });
   }
 

@@ -4,7 +4,7 @@ import TextField from 'material-ui/lib/text-field';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
-export default class AddAnswer extends React.Component {
+export default class AnswerForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,24 +23,10 @@ export default class AddAnswer extends React.Component {
     });
   }
 
-  setAnswerRef(ref){
-    this.answer = ref;
-  }
-
   render() {
     return (
-      <div>
-        <label htmlFor='answer'></label>
-        <TextField value={this.state.content} underlineStyle={{borderColor:'rgba(0,0,0,0.2)'}} underlineFocusStyle={{borderColor:'#4bbf6b'}} ref={(ref) => this.setAnswerRef(ref)} onChange ={this.handleAnswer} />
-        <button className="btn1" onClick={() => this.deleteAnswerField()}>x</button>
-      </div>
+      <textarea value={this.state.content} onChange ={this.handleAnswer} />
     )
-  }
-
-
-
-  deleteAnswerField() {
-    this.props.deleteAnswerField(this.props.id);
   }
 
   handleAnswer(e) {
