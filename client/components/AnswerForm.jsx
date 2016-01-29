@@ -43,15 +43,10 @@ export default class AddAnswer extends React.Component {
     this.props.deleteAnswerField(this.props.id);
   }
 
-<<<<<<< HEAD
-  handleAnswer() {
-    console.log(this.answer.value)
-=======
   handleAnswer(e) {
     let val = e.target.value
     this.setState({
       content: val
     });
->>>>>>> 3a3efec9dd779f6785e088eec872d32e4e60d8ba
   }
 }
