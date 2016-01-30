@@ -16,7 +16,10 @@ export default class QuestionContent extends React.Component {
     this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/content`, {
       context: this,
       state: 'content',
-      asArray: false
+      asArray: false,
+      then() {
+        this.handleValidateQuestion();
+      }
     });
   }
 
@@ -43,7 +46,8 @@ export default class QuestionContent extends React.Component {
             media_live_embeds: true,
             selector: 'div#tinymice',
             body_class: 'custom_tinymce',
-            fontsize_formats: '10pt 12pt 14pt 18pt 24pt 36pt'
+            fontsize_formats: '10pt 12pt 14pt 18pt 24pt 36pt',
+            font_formats: 'Raleway, Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n'
           }}
           onChange ={(text) => this.handleQuestion(text)}
           className="form-control" 
@@ -52,10 +56,15 @@ export default class QuestionContent extends React.Component {
     )
   }
 
+  handleValidateQuestion() {
+    this.state.content !== '' ? this.props.validateQuestion() : this.props.invalidateQuestion()
+  }
+
   handleQuestion(text) {
     this.setState({
       content: text
     })
+    this.handleValidateQuestion();
   }
 
 }

@@ -5,6 +5,7 @@ import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Validator from 'validator';
 
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
@@ -13,19 +14,21 @@ export default class QuestionContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: [],
       quizName: '',
-      question_id: this.props.params.question_id
+      question_id: this.props.params.question_id,
+      validQuestion: false,
+      validAnswerFields: false,
+      oneCorrectAnswer: false
     }
   }
 
   componentDidMount(){
-    base.fetch(this.props.params.quiz_id, {
+    base.fetch(`${this.props.params.quiz_id}/name`, {
       context: this,
       state: 'name',
       then(data){
         this.setState({
-          quizName: data.name
+          quizName: data
         })
       }
     });
@@ -43,11 +46,21 @@ export default class QuestionContainer extends React.Component {
     return (
       <div>
         <h2>{this.state.quizName}</h2>
-        <h5>Add your question below.</h5>
-        < QuestionContent quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id} />
+        <h5 onClick={()=>this.validQuestion()}>Add your question below.</h5>
+        < QuestionContent 
+          quiz_id={this.props.params.quiz_id} 
+          question_id = {this.state.question_id}
+          validateQuestion = {()=>this.validateQuestion()} 
+          invalidateQuestion = {()=>this.invalidateQuestion()} 
+        />
         <br />
           <h5>To add another answer field click on the +. To Delete an answer, click on the x. </h5>
-        < AnswersContainer quiz_id={this.props.params.quiz_id} question_id = {this.state.question_id}/><br />
+        < AnswersContainer 
+          quiz_id={this.props.params.quiz_id} 
+          question_id = {this.state.question_id}
+          validateAnswerFields = {()=>this.validateAnswerFields()}
+          invalidateAnswerFields = {()=>this.invalidateAnswerFields()}
+        /><br />
         <RaisedButton 
           label="Add Question" 
           onClick={() => this.submitQuestion()} 
@@ -58,23 +71,51 @@ export default class QuestionContainer extends React.Component {
     )
   }
 
+  validateQuestion() {
+    this.setState({
+      validQuestion: true
+    })
+  }
+
+  invalidateQuestion() {
+    this.setState({
+      validQuestion: false
+    })
+  }
+
+  validateAnswerFields() {
+    this.setState({
+      validAnswerFields: true
+    })
+  }
+
+  invalidateAnswerFields() {
+    this.setState({
+      validAnswerFields: false
+    })
+  }
+
   submitQuestion() {
     const quizID = this.props.params.quiz_id
 
-    base.push(`${quizID}/questions`, {
-      data: {content: ''}
-    });
-    base.fetch(`${quizID}`, {
-      context: this,
-      state: 'questions',
-      then(data){
-        const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
-        base.push(`${quizID}/questions/${questionID}/answers`, {
-          data: {content:'', correct:false}
-        });
-        this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
-      }
-    });
+    if (this.state.validQuestion === true) {
+      base.push(`${quizID}/questions`, {
+        data: {content: ''}
+      });
+      base.fetch(`${quizID}`, {
+        context: this,
+        state: 'questions',
+        then(data){
+          const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
+          base.push(`${quizID}/questions/${questionID}/answers`, {
+            data: {content:'', correct:false}
+          });
+          this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
+        }
+      });       
+    } else {
+      alert("YOURE STUPIDDD")
+    }
   }
 
 }

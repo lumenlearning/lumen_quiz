@@ -11,8 +11,6 @@ export default class AnswerForm extends React.Component {
     this.state = {
       content: ''
     }
-
-    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   componentDidMount(){
@@ -25,7 +23,7 @@ export default class AnswerForm extends React.Component {
 
   render() {
     return (
-      <textarea value={this.state.content} onChange ={this.handleAnswer} />
+      <textarea value={this.state.content} onChange ={(e) => this.handleAnswer(e)} />
     )
   }
 
