@@ -16,10 +16,7 @@ export default class QuestionContent extends React.Component {
     this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/content`, {
       context: this,
       state: 'content',
-      asArray: false,
-      then() {
-        this.handleValidateQuestion();
-      }
+      asArray: false
     });
   }
 
@@ -56,15 +53,10 @@ export default class QuestionContent extends React.Component {
     )
   }
 
-  handleValidateQuestion() {
-    this.state.content !== '' ? this.props.validateQuestion() : this.props.invalidateQuestion()
-  }
-
   handleQuestion(text) {
     this.setState({
       content: text
     })
-    this.handleValidateQuestion();
   }
 
 }

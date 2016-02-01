@@ -5,22 +5,38 @@ import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
-import Validator from 'validator';
+import Popover from 'material-ui/lib/popover/popover';
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
+injectTapEventPlugin();
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
+
+const popoverStyles = {
+  padding: '10px',
+  fontWeight: '500',
+  backgroundColor: '#c83637',
+  color: '#fff'
+}
 
 export default class QuestionContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       question_id: this.props.params.question_id,
-      validQuestion: false,
-      validAnswerFields: false,
-      validAnswerCheckboxes: false
+      question: '',
+      errorMessage: '',
+      open: false
     }
   }
 
+  componentDidMount(){
+    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}`, {
+      context: this,
+      state: 'question',
+      asArray: false
+    });
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.question_id !== nextProps.params.question_id) {
@@ -30,6 +46,20 @@ export default class QuestionContainer extends React.Component {
     }
   }
 
+  handleError(e, errors) {
+    this.setState({
+      open: true,
+      anchorEl: e.currentTarget,
+      errorMessage: errors
+    });
+  };
+
+  handleRequestClose(){
+    this.setState({
+      open: false,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -37,8 +67,6 @@ export default class QuestionContainer extends React.Component {
         < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
-          validateQuestion = {()=>this.validateQuestion()} 
-          invalidateQuestion = {()=>this.invalidateQuestion()} 
         />
         <br />
           <h4>Answer</h4>
@@ -48,82 +76,72 @@ export default class QuestionContainer extends React.Component {
         < AnswersContainer 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
-          validateAnswerFields = {()=>this.validateAnswerFields()}
-          invalidateAnswerFields = {()=>this.invalidateAnswerFields()}
-          validateAnswerCheckboxes = {()=>this.validateAnswerCheckboxes()}
-          invalidateAnswerCheckboxes = {()=>this.invalidateAnswerCheckboxes()}
-        /><br />
+        />
+        <br />
         <RaisedButton 
           label="Save & Add Question" 
-          onClick={() => this.submitQuestion()} 
+          onClick={(e) => this.validate(e)} 
           backgroundColor={'#4bbf6b'}
           labelColor={'#fff'}
         />
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+          targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+          onRequestClose={() => this.handleRequestClose()}
+        >
+          <div style={popoverStyles}>{this.state.errorMessage}</div>
+        </Popover>
       </div>
     )
   }
 
-  validateQuestion() {
-    this.setState({
-      validQuestion: true
-    })
-  }
-
-  invalidateQuestion() {
-    this.setState({
-      validQuestion: false
-    })
-  }
-
-  validateAnswerFields() {
-    this.setState({
-      validAnswerFields: true
-    })
-  }
-
-  invalidateAnswerFields() {
-    this.setState({
-      validAnswerFields: false
-    })
-  }
-
-  validateAnswerCheckboxes() {
-    this.setState({
-      validAnswerCheckboxes: true
-    })
-  }
-
-  invalidateAnswerCheckboxes() {
-    this.setState({
-      validAnswerCheckboxes: false
-    })
+  validate(e) {
+    let errors = ''
+    let emptyAnswers = []
+    let checkedAnswers = []
+    for (let i=0; i<this.state.question.answers.length; i++) {
+      if (this.state.question.answers[i].content === '') {
+        emptyAnswers.push(this.state.question.answers[i])
+      }
+      if (this.state.question.answers[i].correct === true) {
+        checkedAnswers.push(this.state.question.answers[i])
+      }
+    }
+    if (this.state.question.content === '') {
+      errors = errors + "You must fill out the question field. " 
+    }
+    if (emptyAnswers.length > 0 ) {
+      errors = errors + "You must fill out all of the answer fields or delete empty ones. " 
+    }
+    if (checkedAnswers.length === 0 ) {
+      errors = errors + "You must include at least one correct answer." 
+    }
+    if (errors !== '') {
+      this.handleError(e, errors)
+    } else {
+      this.submitQuestion();
+    }
   }
 
   submitQuestion() {
     const quizID = this.props.params.quiz_id
 
-    if (this.state.validQuestion === false) {
-      alert('invalid question')
-    } else if (this.state.validAnswerFields === false) {
-      alert('invalid answer content')
-    } else if (this.state.validAnswerCheckboxes === false) {
-      alert('no checked answers')
-    } else {
-      base.push(`${quizID}/questions`, {
-        data: {content: ''}
-      });
-      base.fetch(`${quizID}`, {
-        context: this,
-        state: 'questions',
-        then(data){
-          const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
-          base.push(`${quizID}/questions/${questionID}/answers`, {
-            data: {content:'', correct:false}
-          });
-          this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
-        }
-      });  
-    }
+    base.push(`${quizID}/questions`, {
+      data: {content: ''}
+    });
+    base.fetch(`${quizID}`, {
+      context: this,
+      state: 'questions',
+      then(data){
+        const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
+        base.push(`${quizID}/questions/${questionID}/answers`, {
+          data: {content:'', correct:false}
+        });
+        this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
+      }
+    });  
   }
 
 }
