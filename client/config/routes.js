@@ -19,6 +19,7 @@ export default (
     <Route path="/" component={Main}>
       <IndexRoute component={CreateQuiz} />
       <Route path="quizzes/:quiz_id/questions/:question_id" component={QuestionContainer} />
+      <Route path="quizzes/:quiz_id/preview" component={Preview} />
       <Route path="*" component={NotFound} />
     </Route>
   </Router>
