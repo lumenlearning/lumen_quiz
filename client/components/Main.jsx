@@ -4,7 +4,7 @@ import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -51,14 +51,20 @@ export default class Main extends React.Component {
     if (this.state.quizName !== null) {
       toolbarRender = (
       <Toolbar className="bar-top">
-        <ToolbarTitle text={titleName} />
+        <ToolbarGroup float="left">
+          <ToolbarTitle className="top-color" text={titleName} />
         <ToolbarSeparator />
+        <ToolbarTitle className="top-color-secondary" text="Create Question" />
+        </ToolbarGroup>
+        <ToolbarGroup float="right">
+          <FlatButton className="top-button" label="Save & Preview Quiz" default={true} />
+        </ToolbarGroup>
       </Toolbar>
       )
     } else {
       toolbarRender = (
       <Toolbar className="bar-top">
-        <ToolbarTitle text={titleName} />
+        <ToolbarTitle className="top-color" text={titleName} />
       </Toolbar>
       )
     }
