@@ -23,25 +23,18 @@ export default class QuestionContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quizName: '',
       question_id: this.props.params.question_id,
-      validQuestion: false,
-      validAnswerFields: false,
-      validAnswerCheckboxes: false,
+      question: '',
       errorMessage: '',
       open: false
     }
   }
 
   componentDidMount(){
-    base.fetch(`${this.props.params.quiz_id}/name`, {
+    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}`, {
       context: this,
-      state: 'name',
-      then(data){
-        this.setState({
-          quizName: data
-        })
-      }
+      state: 'question',
+      asArray: false
     });
   }
 
@@ -53,10 +46,11 @@ export default class QuestionContainer extends React.Component {
     }
   }
 
-  handleError(event) {
+  handleError(e, errors) {
     this.setState({
       open: true,
-      anchorEl: event.currentTarget,
+      anchorEl: e.currentTarget,
+      errorMessage: errors
     });
   };
 
@@ -69,28 +63,22 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
-        <h2>{this.state.quizName}</h2>
+        <h2>Add Question</h2>
         <h5>Add your question below.</h5>
         <QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
-          validateQuestion = {()=>this.validateQuestion()} 
-          invalidateQuestion = {()=>this.invalidateQuestion()} 
         />
         <br />
           <h5>To add another answer field click on the +. To Delete an answer, click on the x. </h5>
         <AnswersContainer 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
-          validateAnswerFields = {()=>this.validateAnswerFields()}
-          invalidateAnswerFields = {()=>this.invalidateAnswerFields()}
-          validateAnswerCheckboxes = {()=>this.validateAnswerCheckboxes()}
-          invalidateAnswerCheckboxes = {()=>this.invalidateAnswerCheckboxes()}
         />
         <br />
         <RaisedButton 
           label="Add Question" 
-          onClick={(e) => this.submitQuestion(e)} 
+          onClick={(e) => this.validate(e)} 
           backgroundColor={'#4bbf6b'}
           labelColor={'#fff'}
         />
@@ -107,76 +95,51 @@ export default class QuestionContainer extends React.Component {
     )
   }
 
-  validateQuestion() {
-    this.setState({
-      validQuestion: true
-    })
+  validate(e) {
+    let errors = ''
+    let emptyAnswers = []
+    let checkedAnswers = []
+    for (let i=0; i<this.state.question.answers.length; i++) {
+      if (this.state.question.answers[i].content === '') {
+        emptyAnswers.push(this.state.question.answers[i])
+      }
+      if (this.state.question.answers[i].correct === true) {
+        checkedAnswers.push(this.state.question.answers[i])
+      }
+    }
+    if (this.state.question.content === '') {
+      errors = errors + "You must fill out the question field. " 
+    }
+    if (emptyAnswers.length > 0 ) {
+      errors = errors + "You must fill out all of the answer fields or delete empty ones. " 
+    }
+    if (checkedAnswers.length === 0 ) {
+      errors = errors + "You must include at least one correct answer." 
+    }
+    if (errors !== '') {
+      this.handleError(e, errors)
+    } else {
+      this.submitQuestion();
+    }
   }
 
-  invalidateQuestion() {
-    this.setState({
-      validQuestion: false
-    })
-  }
-
-  validateAnswerFields() {
-    this.setState({
-      validAnswerFields: true
-    })
-  }
-
-  invalidateAnswerFields() {
-    this.setState({
-      validAnswerFields: false
-    })
-  }
-
-  validateAnswerCheckboxes() {
-    this.setState({
-      validAnswerCheckboxes: true
-    })
-  }
-
-  invalidateAnswerCheckboxes() {
-    this.setState({
-      validAnswerCheckboxes: false
-    })
-  }
-
-  submitQuestion(e) {
+  submitQuestion() {
     const quizID = this.props.params.quiz_id
 
-    if (this.state.validQuestion === false) {
-      this.setState({
-        errorMessage: "You must fill out the question field."
-      })
-      this.handleError(e)
-    } else if (this.state.validAnswerFields === false) {
-      this.setState({
-        errorMessage: "You must fill out all of the answer fields or delete empty ones."
-      })
-      this.handleError(e)
-    } else if (this.state.validAnswerCheckboxes === false) {
-      this.setState({
-        errorMessage: "You must include at least one correct answer."
-      })
-      this.handleError(e)
-    } else {
-      base.push(`${quizID}/questions`, {
-        data: {content: ''}
-      });
-      base.fetch(`${quizID}`, {
-        context: this,
-        state: 'questions',
-        then(data){
-          const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
-          base.push(`${quizID}/questions/${questionID}/answers`, {
-            data: {content:'', correct:false}
-          });
-          this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
-        }
-      });  
-    }
+    base.push(`${quizID}/questions`, {
+      data: {content: ''}
+    });
+    base.fetch(`${quizID}`, {
+      context: this,
+      state: 'questions',
+      then(data){
+        const questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
+        base.push(`${quizID}/questions/${questionID}/answers`, {
+          data: {content:'', correct:false}
+        });
+        this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
+      }
+    });  
   }
 
 }

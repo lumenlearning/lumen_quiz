@@ -19,7 +19,6 @@ export default class AnswerCheckbox extends React.Component {
       state: 'correct',
       asArray: false
     });
-    this.validateAnswers();
   }
 
   render() {
@@ -27,16 +26,11 @@ export default class AnswerCheckbox extends React.Component {
       <Checkbox
         label=''
         onClick={() => this.correctnessToggle()}
-        onBlur={() => this.validateAnswers()}
         checked={this.state.correct}
         iconStyle={{fill:'rgb(75, 191, 107)', width:'2rem', height:'2rem'}}
         style={{position:'absolute', top:'10px', width:'10px'}}
       />
     )
-  }
-
-  validateAnswers() {
-    this.props.validateAnswers();
   }
 
   correctnessToggle() {
