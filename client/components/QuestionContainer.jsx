@@ -14,7 +14,6 @@ export default class QuestionContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quizName: '',
       question_id: this.props.params.question_id,
       validQuestion: false,
       validAnswerFields: false,
@@ -22,17 +21,6 @@ export default class QuestionContainer extends React.Component {
     }
   }
 
-  componentDidMount(){
-    base.fetch(`${this.props.params.quiz_id}/name`, {
-      context: this,
-      state: 'name',
-      then(data){
-        this.setState({
-          quizName: data
-        })
-      }
-    });
-  }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.question_id !== nextProps.params.question_id) {
@@ -45,7 +33,6 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
-        <h2>{this.state.quizName}</h2>
         <h5 onClick={()=>this.validQuestion()}>Add your question below.</h5>
         < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
