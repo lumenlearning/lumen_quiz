@@ -47,13 +47,25 @@ export default class Main extends React.Component {
       titleName = "Quiz Builder";
     }
 
+    var toolbarRender;
+    if (this.state.quizName !== null) {
+      toolbarRender = (
+      <Toolbar className="bar-top">
+        <ToolbarTitle text={titleName} />
+        <ToolbarSeparator />
+      </Toolbar>
+      )
+    } else {
+      toolbarRender = (
+      <Toolbar className="bar-top">
+        <ToolbarTitle text={titleName} />
+      </Toolbar>
+      )
+    }
 
     return (
       <div className="main-container">
-        <Toolbar className="bar-top">
-          <ToolbarTitle text={titleName} />
-       </Toolbar>
-
+        {toolbarRender}
         <div className="container">
           {this.props.children}
         </div>
