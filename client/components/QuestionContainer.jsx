@@ -18,7 +18,7 @@ export default class QuestionContainer extends React.Component {
       question_id: this.props.params.question_id,
       validQuestion: false,
       validAnswerFields: false,
-      oneCorrectAnswer: false
+      validAnswerCheckboxes: false
     }
   }
 
@@ -60,6 +60,8 @@ export default class QuestionContainer extends React.Component {
           question_id = {this.state.question_id}
           validateAnswerFields = {()=>this.validateAnswerFields()}
           invalidateAnswerFields = {()=>this.invalidateAnswerFields()}
+          validateAnswerCheckboxes = {()=>this.validateAnswerCheckboxes()}
+          invalidateAnswerCheckboxes = {()=>this.invalidateAnswerCheckboxes()}
         /><br />
         <RaisedButton 
           label="Add Question" 
@@ -95,10 +97,28 @@ export default class QuestionContainer extends React.Component {
     })
   }
 
+  validateAnswerCheckboxes() {
+    this.setState({
+      validAnswerCheckboxes: true
+    })
+  }
+
+  invalidateAnswerCheckboxes() {
+    this.setState({
+      validAnswerCheckboxes: false
+    })
+  }
+
   submitQuestion() {
     const quizID = this.props.params.quiz_id
 
-    if (this.state.validQuestion === true) {
+    if (this.state.validQuestion === false) {
+      alert('invalid question')
+    } else if (this.state.validAnswerFields === false) {
+      alert('invalid answer content')
+    } else if (this.state.validAnswerCheckboxes === false) {
+      alert('no checked answers')
+    } else {
       base.push(`${quizID}/questions`, {
         data: {content: ''}
       });
@@ -112,9 +132,7 @@ export default class QuestionContainer extends React.Component {
           });
           this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
         }
-      });       
-    } else {
-      alert("YOURE STUPIDDD")
+      });  
     }
   }
 

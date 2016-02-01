@@ -17,14 +17,25 @@ export default class AnswerForm extends React.Component {
     base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/content`, {
       context: this,
       state: 'content',
-      asArray: false
+      asArray: false,
+      then() {
+        this.validateAnswers();
+      }
     });
   }
 
   render() {
     return (
-      <textarea value={this.state.content} onChange ={(e) => this.handleAnswer(e)} />
+      <textarea 
+        value={this.state.content} 
+        onChange ={(e) => this.handleAnswer(e)} 
+        onBlur = {() => this.validateAnswers()}
+      />
     )
+  }
+
+  validateAnswers() {
+    this.props.validateAnswers()
   }
 
   handleAnswer(e) {

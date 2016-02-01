@@ -26,11 +26,13 @@ export default class Answer extends React.Component {
           quiz_id={this.props.quiz_id}
           question_id = {this.props.question_id}
           id={this.props.id}
+          validateAnswers={() => this.validateAnswers()}
         />
         <AnswerForm     
           quiz_id={this.props.quiz_id}
           question_id = {this.props.question_id}
           id={this.props.id}
+          validateAnswers={() => this.validateAnswers()}
         />
         <Cancel 
           className="btn1" 
@@ -41,6 +43,10 @@ export default class Answer extends React.Component {
         />
       </div>
     )
+  }
+
+  validateAnswers() {
+    this.props.validateAnswers();
   }
 
   deleteAnswerField() {

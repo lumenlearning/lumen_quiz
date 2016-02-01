@@ -43,6 +43,7 @@ export default class AnswersContainer extends React.Component {
           question_id = {this.props.question_id}
           id={this.state.answers[i].key}
           deleteAnswerField={(id) => this.deleteAnswerField(id)}
+          validateAnswers={() => this.validateAnswers()}
         />
       )
     }
@@ -63,6 +64,21 @@ export default class AnswersContainer extends React.Component {
         </FloatingActionButton><br /><br />
       </div>
     )
+  }
+
+  validateAnswers() {
+    let emptyAnswers = []
+    let checkedAnswers = []
+    for (let i=0; i<this.state.answers.length; i++) {
+      if (this.state.answers[i].content === '') {
+        emptyAnswers.push(this.state.answers[i])
+      }
+      if (this.state.answers[i].correct === true) {
+        checkedAnswers.push(this.state.answers[i])
+      }
+    }
+    emptyAnswers.length > 0 ? this.props.invalidateAnswerFields() : this.props.validateAnswerFields()
+    checkedAnswers.length > 0 ? this.props.validateAnswerCheckboxes() : this.props.invalidateAnswerCheckboxes()
   }
 
   deleteAnswerField(id) {
