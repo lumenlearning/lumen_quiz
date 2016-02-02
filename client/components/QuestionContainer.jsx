@@ -8,11 +8,11 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import Help from 'material-ui/lib/svg-icons/action/help';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import ReactTooltip from "react-tooltip"
+
 injectTapEventPlugin();
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
-
-var ReactTooltip = require("react-tooltip")
 
 const styles = {
   help: {
