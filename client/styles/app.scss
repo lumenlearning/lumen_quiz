@@ -86,6 +86,37 @@ input {
   }
 }
 
+.question-preview-wrapper {
+  padding: 10px;
+}
+
+.question-preview-content {
+  padding: 0 100px;
+  color: #333;
+}
+
+.preview-answer-num {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+
+.preview-answer-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.preview-answer-content {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.preview-answer-checkbox {
+  position: absolute;
+  right: 15px;
+  top: 12.5px;
+}
+
 @media(max-width:850px) {
   .answer-wrapper {
     textarea {
@@ -101,5 +132,10 @@ input {
       width: 60%;
       max-width: 60%;
     }
+  }
+  .question-preview-content {
+    font-size: 1rem;
+    margin-top: -5px !important;
+    margin-bottom: -5px !important;
   }
 }

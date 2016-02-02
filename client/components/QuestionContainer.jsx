@@ -7,7 +7,6 @@ import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
 injectTapEventPlugin();
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
@@ -99,12 +98,13 @@ export default class QuestionContainer extends React.Component {
     let errors = ''
     let emptyAnswers = []
     let checkedAnswers = []
-    for (let i=0; i<this.state.question.answers.length; i++) {
-      if (this.state.question.answers[i].content === '') {
-        emptyAnswers.push(this.state.question.answers[i])
+    let answers = this.state.question.answers
+    for (var key in answers) {
+      if (answers.hasOwnProperty(key) && answers[key].content === '') {
+        emptyAnswers.push(answers[key])
       }
-      if (this.state.question.answers[i].correct === true) {
-        checkedAnswers.push(this.state.question.answers[i])
+      if (answers.hasOwnProperty(key) && answers[key].correct === true) {
+        checkedAnswers.push(answers[key])
       }
     }
     if (this.state.question.content === '') {
