@@ -62,21 +62,23 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add Question</h2>
-        <h5>Add your question below.</h5>
-        <QuestionContent 
+        <h4 onClick={()=>this.validQuestion()}>Question</h4>
+        < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
         />
         <br />
-          <h5>To add another answer field click on the +. To Delete an answer, click on the x. </h5>
-        <AnswersContainer 
+          <h4>Answer</h4>
+          <h5>To mark answer as correct, click on the checkbox. To delete, click on the red x.
+          <br /> To add another answer, click on the green plus at the bottom.</h5>
+
+        < AnswersContainer 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
         />
         <br />
         <RaisedButton 
-          label="Add Question" 
+          label="Save & Add Question" 
           onClick={(e) => this.validate(e)} 
           backgroundColor={'#4bbf6b'}
           labelColor={'#fff'}

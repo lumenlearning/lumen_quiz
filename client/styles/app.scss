@@ -9,14 +9,33 @@ $primary: rgb(75, 191, 107);
 }
 
 .bar-top {
-  width: 100%;
-  background: #4bbf6b;
-  font-size: 2rem;
-  text-align: center;
-  padding: 1rem 0;
-  font-weight: 600;
-  color: #fff;
+  background: #4bbf6b !important;
+
 }
+
+.top-color {
+  color: #fff !important;
+}
+
+.top-color-secondary {
+  color: #fff !important;
+  margin-left: 40px;
+}
+
+.top-button{
+  background: #389652 !important; 
+  color: #fff !important;
+}
+
+.answer-field-btn {
+  border-width: 1px !important;
+  border-color: #4bbf6b !important;
+  background: #fff !important; 
+  color: #fff !important;
+  margin-bottom: 40px;
+}
+
+
 
 .container {
   text-align: center;

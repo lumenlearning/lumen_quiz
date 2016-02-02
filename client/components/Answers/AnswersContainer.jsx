@@ -3,8 +3,21 @@ import Answer from './Answer.jsx';
 import Rebase from 're-base';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import FlatButton from 'material-ui/lib/flat-button';
+import AddCircleOutline from 'material-ui/lib/svg-icons/content/add-circle-outline';
+
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
+
+const styles = {
+  add: {
+    cursor:'pointer', 
+    top:'15px', 
+    right:'20px', 
+    width:'2rem', 
+    height:'2rem'
+  }
+}
 
 export default class AnswersContainer extends React.Component {
   constructor(props) {
@@ -53,14 +66,15 @@ export default class AnswersContainer extends React.Component {
     return (
       <div>
         {this.answerFields()}
+
+        <AddCircleOutline
+        onClick={() => this.addAnswerField()}
+        color={'#4bbf6b'}
+        hoverColor={'#389652'}
+        style={styles.add}
+         />
+
         <br /><br />
-        <FloatingActionButton 
-          mini={true} 
-          backgroundColor={'#4bbf6b'}
-          labelColor={'#fff'} 
-          onClick={() => this.addAnswerField()}>
-          <ContentAdd />
-        </FloatingActionButton><br /><br />
       </div>
     )
   }
