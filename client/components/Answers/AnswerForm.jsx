@@ -14,11 +14,22 @@ export default class AnswerForm extends React.Component {
   }
 
   componentDidMount(){
-    base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/content`, {
+    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/content`, {
       context: this,
       state: 'content',
       asArray: false
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.question_id !== nextProps.question_id) {
+      base.removeBinding(this.ref);
+      this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/content`, {
+        context: this,
+        state: 'content',
+        asArray: false
+      });
+    }
   }
 
   render() {

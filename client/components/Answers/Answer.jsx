@@ -23,21 +23,21 @@ export default class Answer extends React.Component {
     return (
       <div className="answer-wrapper">
         <AnswerCheckbox    
-          quiz_id={this.props.quiz_id}
+          quiz_id = {this.props.quiz_id}
           question_id = {this.props.question_id}
-          id={this.props.id}
+          id = {this.props.id}
         />
         <AnswerForm     
-          quiz_id={this.props.quiz_id}
+          quiz_id = {this.props.quiz_id}
           question_id = {this.props.question_id}
-          id={this.props.id}
+          id = {this.props.id}
         />
         <Cancel 
-          className="btn1" 
-          onClick={() => this.deleteAnswerField()}
-          color={'#c83637'}
-          hoverColor={'#b72f2f'}
-          style={styles.cancel}
+          className = "btn1" 
+          onClick = {() => this.deleteAnswerField()}
+          color = {'#c83637'}
+          hoverColor = {'#b72f2f'}
+          style = {styles.cancel}
         />
       </div>
     )

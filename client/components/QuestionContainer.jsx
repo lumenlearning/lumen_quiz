@@ -72,9 +72,10 @@ export default class QuestionContainer extends React.Component {
           <h5>To mark answer as correct, click on the checkbox. To delete, click on the red x.
           <br /> To add another answer, click on the green plus at the bottom.</h5>
 
-        < AnswersContainer 
-          quiz_id={this.props.params.quiz_id} 
+        <AnswersContainer 
+          quiz_id = {this.props.params.quiz_id} 
           question_id = {this.state.question_id}
+          answers = {this.state.question.answers}
         />
         <br />
         <RaisedButton 

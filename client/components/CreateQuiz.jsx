@@ -64,9 +64,6 @@ export default class CreateQuiz extends React.Component {
           questionID = Object.keys(data.questions)[Object.keys(data.questions).length - 1]
         }
       });
-      base.push(`${quizID}/questions/${questionID}/answers`, {
-        data: {content:'', correct:false}
-      });
       this.props.history.pushState(null, "/quizzes/" + quizID + '/questions/' + questionID)
     } else {
       this.setState({

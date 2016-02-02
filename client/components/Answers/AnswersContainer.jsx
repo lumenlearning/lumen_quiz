@@ -44,6 +44,11 @@ export default class AnswersContainer extends React.Component {
         asArray: true
       });
     }
+    if (this.state.answers.length === 0) {
+      base.push(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
+        data: {content:'', correct:false}
+      });
+    }
   }
 
   answerFields() {

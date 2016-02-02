@@ -57,7 +57,12 @@ export default class Main extends React.Component {
         <ToolbarTitle className="top-color-secondary" text="Create Question" />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <FlatButton className="top-button" label="Save & Preview Quiz" default={true} />
+          <FlatButton 
+            className="top-button" 
+            label="Save & Preview Quiz" 
+            default={true} 
+            onClick={() => this.previewQuiz()}
+          />
         </ToolbarGroup>
       </Toolbar>
       )
@@ -75,9 +80,12 @@ export default class Main extends React.Component {
         <div className="container">
           {this.props.children}
         </div>
-      </div>
-
-      
+      </div> 
     )
+  }
+
+  previewQuiz() {
+    const quizID = this.props.params.quiz_id
+    this.props.history.pushState(null, '/quizzes/' + quizID + '/preview')
   }
 }

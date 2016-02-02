@@ -14,11 +14,22 @@ export default class AnswerCheckbox extends React.Component {
   }
 
   componentDidMount(){
-    base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/correct`, {
+    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/correct`, {
       context: this,
       state: 'correct',
       asArray: false
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.question_id !== nextProps.question_id) {
+      base.removeBinding(this.ref);
+      this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.id}/correct`, {
+        context: this,
+        state: 'correct',
+        asArray: false
+      });
+    }
   }
 
   render() {
