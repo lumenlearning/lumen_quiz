@@ -32,6 +32,10 @@ export default class AnswerCheckbox extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   render() {
     return (
       <Checkbox

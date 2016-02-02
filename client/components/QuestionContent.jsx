@@ -31,6 +31,10 @@ export default class QuestionContent extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   render() {
     return (
       <div id='tinymice'>

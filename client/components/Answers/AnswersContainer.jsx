@@ -51,6 +51,10 @@ export default class AnswersContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   answerFields() {
     var answers = []
     for (var i = 0; i < this.state.answers.length; i++) {

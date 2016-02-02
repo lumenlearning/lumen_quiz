@@ -32,6 +32,10 @@ export default class AnswerForm extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   render() {
     return (
       <textarea 

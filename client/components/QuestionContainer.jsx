@@ -34,18 +34,9 @@ export default class QuestionContainer extends React.Component {
     super(props);
     this.state = {
       question_id: this.props.params.question_id,
-      question: '',
       errorMessage: '',
       open: false
     }
-  }
-
-  componentDidMount(){
-    base.syncState(`${this.props.params.quiz_id}/questions/${this.props.params.question_id}`, {
-      context: this,
-      state: 'question',
-      asArray: false
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,14 +64,14 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
-        <h4 onClick={()=>this.validQuestion()}>Question</h4>
+        <h3 onClick={()=>this.validQuestion()}>Question</h3>
         < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
         />
         <br />
 
-          <h4>
+          <h3>
           Answer  
           <Help 
           data-html={true}
@@ -90,18 +81,17 @@ export default class QuestionContainer extends React.Component {
           <br>To delete, click on the red x to the right of the answer.
           <br>To add another answer, click on the green plus at the bottom." />
           <ReactTooltip />
-          </h4>
+          </h3>
 
 
         <AnswersContainer 
           quiz_id = {this.props.params.quiz_id} 
           question_id = {this.state.question_id}
-          answers = {this.state.question.answers}
         />
         <br />
         <RaisedButton 
           label="Save & Add Question" 
-          onClick={(e) => this.validate(e)} 
+          onClick={(e) => this.fetchAndSubmitQuestion(e)} 
           backgroundColor={'#4bbf6b'}
           labelColor={'#fff'}
         />
@@ -118,11 +108,21 @@ export default class QuestionContainer extends React.Component {
     )
   }
 
-  validate(e) {
+  fetchAndSubmitQuestion(e) {
+    base.fetch(`${this.props.params.quiz_id}/questions/${this.state.question_id}`, {
+      context: this,
+      then(data){
+        debugger;
+        this.validate(e, data)
+      }
+    });
+  }
+
+  validate(e, question) {
     let errors = ''
     let emptyAnswers = []
     let checkedAnswers = []
-    let answers = this.state.question.answers
+    let answers = question.answers
     for (var key in answers) {
       if (answers.hasOwnProperty(key) && answers[key].content === '') {
         emptyAnswers.push(answers[key])
@@ -131,7 +131,7 @@ export default class QuestionContainer extends React.Component {
         checkedAnswers.push(answers[key])
       }
     }
-    if (this.state.question.content === '') {
+    if (question.content === '') {
       errors = errors + "You must fill out the question field. " 
     }
     if (emptyAnswers.length > 0 ) {
