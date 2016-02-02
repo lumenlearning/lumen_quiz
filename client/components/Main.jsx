@@ -11,10 +11,11 @@ const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
 export default class Main extends React.Component {
     constructor(props) {
-    super(props);
-    this.state = {
-      quizName: '',
-    }
+      super(props);
+      this.state = {
+        quizName: '',
+        page: ''
+      }
   }
 
   componentWillMount(){
@@ -26,6 +27,15 @@ export default class Main extends React.Component {
   }
 
   fetchState(props) {
+    if (props.location.pathname.indexOf('preview') !== -1) {
+      this.setState({
+        page: 'Quiz Preview'
+      })
+    } else {
+      this.setState({
+        page: 'Create Question'
+      })
+    }
     base.fetch(`${props.params.quiz_id}/name`, {
       context: this,
       state: 'name',
@@ -54,15 +64,9 @@ export default class Main extends React.Component {
         <ToolbarGroup float="left">
           <ToolbarTitle className="top-color" text={titleName} />
         <ToolbarSeparator />
-        <ToolbarTitle className="top-color-secondary" text="Create Question" />
+        <ToolbarTitle className="top-color-secondary" text={this.state.page} />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <FlatButton 
-            className="top-button" 
-            label="Save & Preview Quiz" 
-            default={true} 
-            onClick={() => this.previewQuiz()}
-          />
         </ToolbarGroup>
       </Toolbar>
       )
@@ -84,8 +88,4 @@ export default class Main extends React.Component {
     )
   }
 
-  previewQuiz() {
-    const quizID = this.props.params.quiz_id
-    this.props.history.pushState(null, '/quizzes/' + quizID + '/preview')
-  }
 }

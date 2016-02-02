@@ -31,7 +31,14 @@ export default class AnswersContainer extends React.Component {
     this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
       context: this,
       state: 'answers',
-      asArray: true
+      asArray: true,
+      then() {
+        if (this.state.answers.length === 0) {
+          base.post(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/0`, {
+            data: {content:'', correct:false}
+          });
+        }
+      }
     });
   }
 
@@ -44,11 +51,7 @@ export default class AnswersContainer extends React.Component {
         asArray: true
       });
     }
-    if (this.state.answers.length === 0) {
-      base.push(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
-        data: {content:'', correct:false}
-      });
-    }
+
   }
 
   componentWillUnmount() {

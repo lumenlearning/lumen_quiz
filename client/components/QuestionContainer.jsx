@@ -9,6 +9,7 @@ import Help from 'material-ui/lib/svg-icons/action/help';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import ReactTooltip from "react-tooltip"
+import FlatButton from 'material-ui/lib/flat-button';
 
 injectTapEventPlugin();
 
@@ -64,6 +65,12 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
+          <FlatButton 
+            className="top-button" 
+            label="Save & Preview Quiz" 
+            default={true} 
+            onClick={(e) => this.fetchAndValidateQuestion(e)}
+          />
         <h3 onClick={()=>this.validQuestion()}>Question</h3>
         < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
@@ -91,9 +98,10 @@ export default class QuestionContainer extends React.Component {
         <br />
         <RaisedButton 
           label="Save & Add Question" 
-          onClick={(e) => this.fetchAndSubmitQuestion(e)} 
+          onClick={(e) => this.fetchAndValidateQuestion(e)} 
           backgroundColor={'#4bbf6b'}
           labelColor={'#fff'}
+          className='submit-button'
         />
         <Popover
           open={this.state.open}
@@ -108,11 +116,10 @@ export default class QuestionContainer extends React.Component {
     )
   }
 
-  fetchAndSubmitQuestion(e) {
+  fetchAndValidateQuestion(e) {
     base.fetch(`${this.props.params.quiz_id}/questions/${this.state.question_id}`, {
       context: this,
       then(data){
-        debugger;
         this.validate(e, data)
       }
     });
@@ -142,9 +149,16 @@ export default class QuestionContainer extends React.Component {
     }
     if (errors !== '') {
       this.handleError(e, errors)
-    } else {
+    } else if (errors === '' && e.target.parentElement.parentElement.parentElement.className === 'submit-button') {
       this.submitQuestion();
+    } else if (errors === '' && e.target.parentElement.parentElement.className === 'top-button') {
+      this.previewQuiz();
     }
+  }
+
+  previewQuiz() {
+    const quizID = this.props.params.quiz_id
+    this.props.history.pushState(null, '/quizzes/' + quizID + '/preview')
   }
 
   submitQuestion() {
