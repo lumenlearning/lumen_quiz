@@ -5,11 +5,22 @@ import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Help from 'material-ui/lib/svg-icons/action/help';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin();
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
+
+var ReactTooltip = require("react-tooltip")
+
+const styles = {
+  help: {
+    cursor:'pointer', 
+    width:'1.25rem', 
+    height:'1.25rem'
+  }
+}
 
 const popoverStyles = {
   padding: '10px',
@@ -68,9 +79,19 @@ export default class QuestionContainer extends React.Component {
           question_id = {this.state.question_id}
         />
         <br />
-          <h4>Answer</h4>
-          <h5>To mark answer as correct, click on the checkbox. To delete, click on the red x.
-          <br /> To add another answer, click on the green plus at the bottom.</h5>
+
+          <h4>
+          Answer  
+          <Help 
+          data-html={true}
+          style={styles.help}
+          color={'#767676'}
+          data-tip="To mark an answer as correct, click on the checkbox on the left.
+          <br>To delete, click on the red x to the right of the answer.
+          <br>To add another answer, click on the green plus at the bottom." />
+          <ReactTooltip />
+          </h4>
+
 
         < AnswersContainer 
           quiz_id={this.props.params.quiz_id} 
