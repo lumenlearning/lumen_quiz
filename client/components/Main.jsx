@@ -62,9 +62,9 @@ export default class Main extends React.Component {
       toolbarRender = (
       <Toolbar className="bar-top">
         <ToolbarGroup float="left">
-          <ToolbarTitle className="top-color" text={titleName} />
-        <ToolbarSeparator />
-        <ToolbarTitle className="top-color-secondary" text={this.state.page} />
+          <ToolbarTitle className="top-color quiz-title" text={titleName} />
+        <ToolbarSeparator className="tb-separator" />
+        <ToolbarTitle className="top-color-secondary page-title" text={this.state.page} />
         </ToolbarGroup>
         <ToolbarGroup float="right">
         </ToolbarGroup>
