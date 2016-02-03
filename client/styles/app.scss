@@ -115,6 +115,9 @@ input {
 .question-preview-content {
   padding: 0 100px;
   color: #333;
+  width: 70%;
+  display: block;
+  margin: auto;
 }
 
 .preview-answer-num {
@@ -131,6 +134,7 @@ input {
 .preview-answer-content {
   padding-left: 25px;
   padding-right: 25px;
+  margin: -15px;
 }
 
 .preview-answer-checkbox {
@@ -141,8 +145,8 @@ input {
 
 .edit-buttons {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 7.5px;
+  left: 7.5px;
 }
 
 @media(max-width:900px) {

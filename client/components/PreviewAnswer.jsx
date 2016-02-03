@@ -2,6 +2,10 @@ import React from 'react';
 import Divider from 'material-ui/lib/divider';
 import Paper from 'material-ui/lib/paper';
 import Checkbox from 'material-ui/lib/svg-icons/navigation/check';
+import TinyMCEInput from 'react-tinymce-input';
+import Rebase from 're-base';
+
+const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
 const styles = {
   paper: {
@@ -17,23 +21,47 @@ const styles = {
 export default class PreviewAnswer extends React.Component {
   constructor(props) {
     super(props);
-  }
 
-  componentDidMount() {
-
+    this.state = {
+      content: this.props.content
+    }
   }
 
   renderCheckbox() {
     if (this.props.correct) {return <Checkbox style={styles.checkbox} color={'#4bbf6b'} />}
   }
 
+  componentDidMount() {
+    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/answers/${this.props.answer_id}/content`, {
+      context: this,
+      state: 'content',
+      asArray: false
+    });
+    tinymce.init({
+      selector: '.preview-answer-content',
+      inline: true,
+      toolbar: 'undo redo save',
+      menubar: false,
+      plugins: 'save',
+      save_onsavecallback: (obj) => this.editAnswerInline(obj.targetElm.innerText)
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   render() {
     return (
       <Paper zDepth={1} style={styles.paper} className='preview-answer-wrapper'>
         <span className='preview-answer-num'>{this.props.id}.</span>
-        <span className='preview-answer-content'>{this.props.content}</span>
+        <div className='preview-answer-content'>{this.props.content}</div>
         <span className='preview-answer-checkbox'>{this.renderCheckbox()}</span>
       </Paper>
     )
+  }
+
+  editAnswerInline(obj) {
+    this.setState({content:obj})
   }
 }

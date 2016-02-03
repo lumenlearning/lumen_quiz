@@ -50,12 +50,33 @@ export default class PreviewQuestion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answersOpen: false
+      answersOpen: false,
+      content: this.props.content
     }
   }
 
+  componentDidMount() {
+    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.id}/content`, {
+      context: this,
+      state: 'content',
+      asArray: false
+    });
+    tinymce.init({
+      selector: '.question-preview-content',
+      inline: true,
+      toolbar: 'undo redo save',
+      menubar: false,
+      plugins: 'save',
+      save_onsavecallback: (obj) => this.editQuestionInline(obj.targetElm.innerHTML)
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
+
   parseHTMLContent() { 
-    let html = {__html: this.props.content}; 
+    let html = {__html: this.state.content}; 
     return <div className="question-preview-content" dangerouslySetInnerHTML={html} />
   }
 
@@ -66,8 +87,11 @@ export default class PreviewQuestion extends React.Component {
       var answerNum = allAnswers.length + 1
       allAnswers.push(
         <PreviewAnswer 
-        key = {answers[key].key}
+        key = {key}
         id = {answerNum}
+        quiz_id = {this.props.quiz_id}
+        answer_id = {key}
+        question_id = {this.props.id}
         content = {answers[key].content}
         correct = {answers[key].correct}
         />
@@ -111,6 +135,9 @@ export default class PreviewQuestion extends React.Component {
         </div>
       </div>
     )
+  }
+  editQuestionInline(obj) {
+    this.setState({content:obj})
   }
 
   deleteQuestion() {
