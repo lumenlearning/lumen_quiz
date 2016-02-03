@@ -149,12 +149,40 @@ input {
   left: 7.5px;
 }
 
-@media(max-width:850px) {
+@media(max-width:900px) {
   .answer-wrapper {
     textarea {
       width: 70%;
       max-width: 70%;
     }
+  }
+
+  .top-color-secondary {
+    margin-left: 20px;
+  }
+
+  .quiz-title {
+    font-size: 100% !important;
+  }
+
+  .page-title {
+    font-size: 100% !important;
+  }
+
+  .top-button{
+    position: left !important;
+    font-size: 75% !important;
+  }
+
+}
+
+@media(max-width:667px) {
+  .page-title {
+    visibility: hidden;
+  }
+
+  .tb-separator {
+    visibility: hidden;
   }
 }
 
@@ -170,4 +198,13 @@ input {
     margin-top: -5px !important;
     margin-bottom: -5px !important;
   }
+
+  .page-title {
+    visibility: hidden;
+  }
+
+  .tb-separator {
+    visibility: hidden;
+  }
+
 }
