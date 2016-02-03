@@ -87,8 +87,11 @@ export default class PreviewQuestion extends React.Component {
       var answerNum = allAnswers.length + 1
       allAnswers.push(
         <PreviewAnswer 
-        key = {answers[key].key}
+        key = {key}
         id = {answerNum}
+        quiz_id = {this.props.quiz_id}
+        answer_id = {key}
+        question_id = {this.props.id}
         content = {answers[key].content}
         correct = {answers[key].correct}
         />
