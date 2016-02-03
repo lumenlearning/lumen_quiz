@@ -10,6 +10,7 @@ import EditIcon from 'material-ui/lib/svg-icons/image/edit';
 import Delete from 'material-ui/lib/svg-icons/navigation/cancel';
 import Rebase from 're-base';
 
+
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
 const styles = {
@@ -56,13 +57,14 @@ export default class PreviewQuestion extends React.Component {
   }
 
   componentDidMount() {
-    this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.id}/content`, {
+    this.ref = base.bindToState(`${this.props.quiz_id}/questions/${this.props.id}/content`, {
       context: this,
       state: 'content',
       asArray: false
     });
+    let selector = '#question-' + this.props.id
     tinymce.init({
-      selector: '.question-preview-content',
+      selector: selector,
       inline: true,
       toolbar: 'undo redo save',
       menubar: false,
@@ -76,8 +78,9 @@ export default class PreviewQuestion extends React.Component {
   }
 
   parseHTMLContent() { 
-    let html = {__html: this.state.content}; 
-    return <div className="question-preview-content" dangerouslySetInnerHTML={html} />
+    let html = {__html: this.state.content};
+    let id = "question-" + this.props.id 
+    return <div className="question-preview-content" id={id} dangerouslySetInnerHTML={html} />
   }
 
   renderAnswers() {
@@ -94,6 +97,7 @@ export default class PreviewQuestion extends React.Component {
         question_id = {this.props.id}
         content = {answers[key].content}
         correct = {answers[key].correct}
+        openSnackbar = {(message) => this.openSnackbar(message)}
         />
       )
     } 
@@ -137,7 +141,14 @@ export default class PreviewQuestion extends React.Component {
     )
   }
   editQuestionInline(obj) {
-    this.setState({content:obj})
+    base.post(`${this.props.quiz_id}/questions/${this.props.id}/content`, {
+      data: obj
+    });
+    this.props.openSnackbar();
+  }
+
+  openSnackbar() {
+    this.props.openSnackbar();
   }
 
   deleteQuestion() {

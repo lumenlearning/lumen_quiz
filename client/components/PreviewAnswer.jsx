@@ -37,8 +37,9 @@ export default class PreviewAnswer extends React.Component {
       state: 'content',
       asArray: false
     });
+    let selector = '#answer-' + this.props.question_id + '-' + this.props.id
     tinymce.init({
-      selector: '.preview-answer-content',
+      selector: selector,
       inline: true,
       toolbar: 'undo redo save',
       menubar: false,
@@ -55,7 +56,7 @@ export default class PreviewAnswer extends React.Component {
     return (
       <Paper zDepth={1} style={styles.paper} className='preview-answer-wrapper'>
         <span className='preview-answer-num'>{this.props.id}.</span>
-        <div className='preview-answer-content'>{this.props.content}</div>
+        <div id={'answer-' + this.props.question_id + '-' + this.props.id} className='preview-answer-content'>{this.props.content}</div>
         <span className='preview-answer-checkbox'>{this.renderCheckbox()}</span>
       </Paper>
     )
@@ -63,5 +64,6 @@ export default class PreviewAnswer extends React.Component {
 
   editAnswerInline(obj) {
     this.setState({content:obj})
+    this.props.openSnackbar();
   }
 }

@@ -2,14 +2,23 @@ import React from 'react';
 import Rebase from 're-base';
 import PreviewQuestion from './PreviewQuestion.jsx'
 import FlatButton from 'material-ui/lib/flat-button';
+import Snackbar from 'material-ui/lib/snackbar';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
+
+const styles = {
+  snackbar: {
+    backgroundColor: '#245693'
+  }
+}
 
 export default class Preview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: []
+      questions: [],
+      open: false,
+      snackMessage: ''
     }
   }
 
@@ -35,8 +44,8 @@ export default class Preview extends React.Component {
         content = {question.content}
         quiz_id = {this.props.params.quiz_id}
         history = {this.props.history}
-        question_id = {this.props.params.question_id}
         deleteQuestion = {(id) => this.deleteQuestion(id)}
+        openSnackbar = {() => this.openSnackbar()}
       />)
     })}
     return questions
@@ -45,6 +54,13 @@ export default class Preview extends React.Component {
   render() {
     return (
       <div>
+        <Snackbar
+          open = {this.state.open}
+          message = {this.state.snackMessage}
+          autoHideDuration = {2000}
+          onRequestClose = {() => this.closeSnackbar()}
+          bodyStyle={styles.snackbar}
+        />
         <FlatButton 
           className="top-button" 
           label="Add New Question" 
@@ -54,6 +70,20 @@ export default class Preview extends React.Component {
         {this.questions()}
       </div>
     )
+  }
+
+  openSnackbar() {
+    this.setState({
+      open: true,
+      snackMessage: 'Your edits were successfully saved.'
+    });
+  }
+
+  closeSnackbar() {
+    this.setState({
+      open: false,
+      snackMessage: ''
+    });
   }
 
   deleteQuestion(id) {
