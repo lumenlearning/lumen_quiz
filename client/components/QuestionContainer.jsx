@@ -71,7 +71,7 @@ export default class QuestionContainer extends React.Component {
             default={true} 
             onClick={(e) => this.fetchAndValidateQuestion(e)}
           />
-        <h3 onClick={()=>this.validQuestion()}>Question</h3>
+        <h3>Question</h3>
         < QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}

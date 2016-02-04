@@ -50,6 +50,8 @@ export default class PreviewAnswer extends React.Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+    let editorID = 'answer-' + this.props.question_id + '-' + this.props.id 
+    tinymce.EditorManager.get(editorID).remove();
   }
 
   render() {
