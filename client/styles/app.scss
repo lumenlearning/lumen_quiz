@@ -149,6 +149,71 @@ input {
   left: 7.5px;
 }
 
+.typeahead {
+  position: relative;
+
+  input::-webkit-input-placeholder {
+    color: #777 !important;
+  }
+   
+  input:-moz-placeholder { /* Firefox 18- */
+    color: #777 !important;  
+  }
+   
+  input::-moz-placeholder {  /* Firefox 19+ */
+    color: #777 !important;  
+  }
+   
+  input:-ms-input-placeholder {  
+    color: #777 !important;  
+  }
+}
+
+.topcoat-list_container {
+  list-style: none;
+  position: absolute;
+  top: 30px;
+  z-index: 10000;
+  display: block;
+  margin: 20px auto;
+  width: 100%;
+  padding: 0;
+}
+
+.topcoat-list_item {
+    display: block;
+    margin: auto;
+    width: 35rem;
+  .typeahead-option {
+    background: rgba(75, 191, 107, 1);
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 2rem;
+    display: block;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.11), 0 5px 10px rgba(0,0,0,0.16);
+    transition: all 0.2s;
+    &:hover {
+      background: #4bd16e;
+    }
+  }
+}
+
+.topcoat-text-input {
+  border: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  height: 2rem;
+  width: 35rem;
+  background: transparent;
+  &:focus, &:active {
+    outline: 2px solid rgba(75, 191, 107, 0.5);
+    box-shadow:0 0 3px rgba(75, 191, 107, 0.5);
+    background: #fff;
+  }
+}
+
+
 @media(max-width:900px) {
   .answer-wrapper {
     textarea {

@@ -75,6 +75,8 @@ export default class PreviewQuestion extends React.Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+    let editorID = 'question-' + this.props.id 
+    tinymce.EditorManager.get(editorID).remove();
   }
 
   parseHTMLContent() { 

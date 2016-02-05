@@ -1,6 +1,7 @@
 import React from 'react';
-import QuestionContent from './QuestionContent.jsx'
+import QuestionContent from './QuestionContent.jsx';
 import AnswersContainer from './Answers/AnswersContainer.jsx';
+import GuidSearch from './GuidSearch.jsx';
 import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
@@ -8,8 +9,10 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import Help from 'material-ui/lib/svg-icons/action/help';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import ReactTooltip from "react-tooltip"
+import ReactTooltip from "react-tooltip";
 import FlatButton from 'material-ui/lib/flat-button';
+import Outcomes from '../../outcomes.json';
+var Typeahead = require('react-typeahead').Typeahead;
 
 injectTapEventPlugin();
 
@@ -71,8 +74,12 @@ export default class QuestionContainer extends React.Component {
             default={true} 
             onClick={(e) => this.fetchAndValidateQuestion(e)}
           />
+        <GuidSearch 
+          quiz_id = {this.props.params.quiz_id} 
+          question_id = {this.state.question_id}
+        />
         <h3>Question</h3>
-        < QuestionContent 
+        <QuestionContent 
           quiz_id={this.props.params.quiz_id} 
           question_id = {this.state.question_id}
         />
