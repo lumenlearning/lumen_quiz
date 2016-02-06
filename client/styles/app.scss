@@ -151,6 +151,9 @@ input {
 
 .typeahead {
   position: relative;
+  display: block;
+  margin: auto;
+  width: 35rem;
 
   input::-webkit-input-placeholder {
     color: #777 !important;
@@ -169,11 +172,39 @@ input {
   }
 }
 
+
+
+.typeahead-wrapper {
+  position: relative;
+}
+
+.typeahead-btn {
+  width: 40rem;
+  margin: auto;
+  z-index: 100000;
+  div {
+    background: rgba(0, 0, 0, 0.4);
+    border: transparent;
+    padding: 2px 8px;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    margin-top: -30px;
+    font-weight: 100;
+    z-index: 100000000;
+    transition: all 0.3s;
+    &:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
 .topcoat-list_container {
   list-style: none;
   position: absolute;
   top: 30px;
-  z-index: 10000;
+  z-index: 1;
   display: block;
   margin: 20px auto;
   width: 100%;

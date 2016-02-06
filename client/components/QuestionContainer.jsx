@@ -152,7 +152,10 @@ export default class QuestionContainer extends React.Component {
       errors = errors + "You must fill out all of the answer fields or delete empty ones. " 
     }
     if (checkedAnswers.length === 0 ) {
-      errors = errors + "You must include at least one correct answer." 
+      errors = errors + "You must include at least one correct answer. " 
+    }
+    if (!question.guid) {
+      errors = errors + "You must align the question with a Learning Outcome." 
     }
     if (errors !== '') {
       this.handleError(e, errors)

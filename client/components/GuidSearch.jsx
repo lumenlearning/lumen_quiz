@@ -10,7 +10,8 @@ export default class GuidSearch extends React.Component {
     super(props);
     this.state = {
       guid: '',
-      searchOpen: false
+      searchOpen: false,
+      closeBtn: false
     }
   }
 
@@ -43,7 +44,7 @@ export default class GuidSearch extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="typeahead-wrapper">
         <Typeahead
           options = {Outcomes}
           maxVisible = {10}
@@ -60,24 +61,47 @@ export default class GuidSearch extends React.Component {
             token: "topcoat-button",
             customAdd: "topcoat-addme"
           }}
-          onBlur = {() => this.handleBlur()}
-        /><br />
+          onKeyUp = {() => this.closeBtn()}
+        /> 
+        {this.renderCloseBtn()}
+        <br />
       </div>
     )
   }
 
-  handleBlur() {
+  closeDropdown() {
     this.refs.typeahead.setState({
       entryValue: '',
       selection: null,
-      selectionIndex: null,
       visible: []
     })
+    this.setState({
+      closeBtn: false
+    })
+  }
+
+  closeBtn() {
+    if (this.refs.typeahead.state.entryValue === '') {
+      this.setState({
+        closeBtn: false
+      })
+    } else {
+      this.setState({
+        closeBtn: true
+      })
+    }
+  }
+
+  renderCloseBtn() {
+    if (this.state.closeBtn) {
+      return <div className="typeahead-btn"><div onClick={() => this.closeDropdown()}>x</div></div>
+    }
   }
 
   saveGuid(obj) {
     this.setState({
-      guid: obj
+      guid: obj,
+      closeBtn: false
     })
   }
 }
