@@ -23,7 +23,8 @@ export default class AnswersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: []
+      answers: [],
+      multipleCorrect: false
     }
   }
 
@@ -38,6 +39,7 @@ export default class AnswersContainer extends React.Component {
             data: {content:'', correct:false}
           });
         }
+        this.checkMultipleCorrect();
       }
     });
   }
@@ -50,8 +52,8 @@ export default class AnswersContainer extends React.Component {
         state: 'answers',
         asArray: true
       });
+      this.checkMultipleCorrect();
     }
-
   }
 
   componentWillUnmount() {
@@ -68,15 +70,31 @@ export default class AnswersContainer extends React.Component {
           question_id = {this.props.question_id}
           id={this.state.answers[i].key}
           deleteAnswerField={(id) => this.deleteAnswerField(id)}
+          multipleCorrect={this.state.multipleCorrect}
         />
       )
     }
     return answers
   }
 
+  checkMultipleCorrect() {
+    base.fetch(`${this.props.quiz_id}/questions/${this.props.question_id}/answers`, {
+        context: this,
+        then(answers) {
+          let checkedAnswers = []
+          for (var key in answers) {
+            if (answers.hasOwnProperty(key) && answers[key].correct === true) {
+              checkedAnswers.push(answers[key])
+            }
+            checkedAnswers.length > 1 ? this.setState({multipleCorrect: true}) : this.setState({multipleCorrect: false})
+          }
+        }
+      });
+  }
+
   render() {
     return (
-      <div>
+      <div onClick={() => this.checkMultipleCorrect()}>
         {this.answerFields()}
 
         <AddCircleOutline
