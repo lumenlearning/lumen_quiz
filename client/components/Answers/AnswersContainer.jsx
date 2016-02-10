@@ -5,7 +5,8 @@ import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FlatButton from 'material-ui/lib/flat-button';
 import AddCircleOutline from 'material-ui/lib/svg-icons/content/add-circle-outline';
-
+import Help from 'material-ui/lib/svg-icons/action/help-outline';
+import Popover from 'material-ui/lib/popover/popover';
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
@@ -16,6 +17,17 @@ const styles = {
     right:'20px', 
     width:'2rem', 
     height:'2rem'
+  },
+  help: {
+    cursor:'pointer', 
+    width:'1.4rem', 
+    height:'1.4rem',
+  },
+  popover: {
+    padding: '20px',
+    fontWeight: '500',
+    backgroundColor: '#245693',
+    color: '#fff'
   }
 }
 
@@ -24,7 +36,9 @@ export default class AnswersContainer extends React.Component {
     super(props);
     this.state = {
       answers: [],
-      multipleCorrect: false
+      multipleCorrect: false,
+      open: false,
+      helpMessage: ''
     }
   }
 
@@ -93,8 +107,28 @@ export default class AnswersContainer extends React.Component {
   }
 
   render() {
+    let header = this.state.multipleCorrect ? 'Answers: Multiple Correct' : 'Answers: Multiple Choice'
     return (
       <div onClick={() => this.checkMultipleCorrect()}>
+          <h3>
+            <Help 
+              onClick={(e) => this.helpPopover(e)} 
+              style={styles.help}
+              color='#777'
+              hoverColor='#333'
+            />
+            <Popover
+              open={this.state.open}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+              targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+              onRequestClose={() => this.handleRequestClose()}
+              canAutoPosition={true}
+            >
+              <div style={styles.popover}>{this.state.helpMessage}</div>
+            </Popover>
+            &nbsp; {header}
+          </h3>
         {this.answerFields()}
 
         <AddCircleOutline
@@ -108,6 +142,23 @@ export default class AnswersContainer extends React.Component {
       </div>
     )
   }
+
+  helpPopover(e) {
+    let message = "To mark an answer as correct, click on the checkbox on the left. \
+    To delete, click on the red x to the right of the answer. \
+    To add another answer, click on the green plus at the bottom."
+    this.setState({
+      open: true,
+      anchorEl: e.currentTarget,
+      helpMessage: message
+    });
+  }
+
+  handleRequestClose(){
+    this.setState({
+      open: false,
+    });
+  };
 
   deleteAnswerField(id) {
     this.setState({

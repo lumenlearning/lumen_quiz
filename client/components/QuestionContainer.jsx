@@ -6,25 +6,14 @@ import Rebase from 're-base';
 import { State } from 'react-router'
 import TextField from 'material-ui/lib/text-field';
 import RaisedButton from 'material-ui/lib/raised-button';
-import Help from 'material-ui/lib/svg-icons/action/help';
 import Popover from 'material-ui/lib/popover/popover';
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import ReactTooltip from "react-tooltip";
 import FlatButton from 'material-ui/lib/flat-button';
 import Outcomes from '../../outcomes.json';
-var Typeahead = require('react-typeahead').Typeahead;
 
 injectTapEventPlugin();
 
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
-
-const styles = {
-  help: {
-    cursor:'pointer', 
-    width:'1.25rem', 
-    height:'1.25rem'
-  }
-}
 
 const popoverStyles = {
   padding: '10px',
@@ -68,12 +57,12 @@ export default class QuestionContainer extends React.Component {
   render() {
     return (
       <div>
-          <FlatButton 
-            className="top-button" 
-            label="Save & Preview Quiz" 
-            default={true} 
-            onClick={(e) => this.previewQuiz(e)}
-          />
+        <FlatButton 
+          className="top-button" 
+          label="Save & Preview Quiz" 
+          default={true} 
+          onClick={(e) => this.previewQuiz(e)}
+        />
         <GuidSearch 
           quiz_id = {this.props.params.quiz_id} 
           question_id = {this.state.question_id}
@@ -84,19 +73,6 @@ export default class QuestionContainer extends React.Component {
           question_id = {this.state.question_id}
         />
         <br />
-
-          <h3>
-          Answer  
-          <Help 
-          data-html={true}
-          style={styles.help}
-          color={'#767676'}
-          data-tip="To mark an answer as correct, click on the checkbox on the left.
-          <br>To delete, click on the red x to the right of the answer.
-          <br>To add another answer, click on the green plus at the bottom." />
-          <ReactTooltip />
-          </h3>
-
 
         <AnswersContainer 
           quiz_id = {this.props.params.quiz_id} 
