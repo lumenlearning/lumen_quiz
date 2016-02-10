@@ -72,7 +72,7 @@ export default class QuestionContainer extends React.Component {
             className="top-button" 
             label="Save & Preview Quiz" 
             default={true} 
-            onClick={(e) => this.fetchAndValidateQuestion(e)}
+            onClick={(e) => this.previewQuiz(e)}
           />
         <GuidSearch 
           quiz_id = {this.props.params.quiz_id} 
@@ -161,8 +161,6 @@ export default class QuestionContainer extends React.Component {
       this.handleError(e, errors)
     } else if (errors === '' && e.target.parentElement.parentElement.parentElement.className === 'submit-button') {
       this.submitQuestion();
-    } else if (errors === '' && e.target.parentElement.parentElement.className === 'top-button') {
-      this.previewQuiz();
     }
   }
 

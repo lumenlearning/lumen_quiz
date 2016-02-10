@@ -117,7 +117,7 @@ input {
   color: #333;
   width: 70%;
   display: block;
-  margin: auto;
+  margin: auto 75px;
 }
 
 .preview-answer-num {
@@ -171,8 +171,6 @@ input {
     color: #777 !important;  
   }
 }
-
-
 
 .typeahead-wrapper {
   position: relative;
@@ -268,6 +266,10 @@ input {
   .top-button{
     position: left !important;
     font-size: 75% !important;
+  }
+
+  .question-preview-content {
+    padding: 0;
   }
 
 }

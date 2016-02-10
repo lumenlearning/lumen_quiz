@@ -8,10 +8,6 @@ import Rebase from 're-base';
 const base = Rebase.createClass('https://lumenquiz.firebaseio.com/');
 
 const styles = {
-  paper: {
-    padding: '15px',
-    margin: '10px'
-  },
   checkbox: {
     width:'1.6rem', 
     height:'1.6rem'
@@ -55,8 +51,13 @@ export default class PreviewAnswer extends React.Component {
   }
 
   render() {
+    let dynamicStyles = {  
+      padding: '15px',
+      margin: '10px',
+      border: this.state.content === '' ? '2px solid #c83637' : 'transparent'
+    }
     return (
-      <Paper zDepth={1} style={styles.paper} className='preview-answer-wrapper'>
+      <Paper zDepth={1} style={dynamicStyles} className='preview-answer-wrapper'>
         <span className='preview-answer-num'>{this.props.id}.</span>
         <div id={'answer-' + this.props.question_id + '-' + this.props.id} className='preview-answer-content'>{this.props.content}</div>
         <span className='preview-answer-checkbox'>{this.renderCheckbox()}</span>

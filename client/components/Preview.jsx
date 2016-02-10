@@ -37,18 +37,16 @@ export default class Preview extends React.Component {
   questions() {
     let questions = []
     {this.state.questions.map((question) => {
-      if (question.content !== '' && question.answers !== []) {
-        questions.push(<PreviewQuestion 
-          key = {question.key}
-          id = {question.key}
-          answers = {question.answers}
-          content = {question.content}
-          quiz_id = {this.props.params.quiz_id}
-          history = {this.props.history}
-          deleteQuestion = {(id) => this.deleteQuestion(id)}
-          openSnackbar = {() => this.openSnackbar()}
-        />)
-      }
+      questions.push(<PreviewQuestion 
+        key = {question.key}
+        id = {question.key}
+        answers = {question.answers}
+        content = {question.content}
+        quiz_id = {this.props.params.quiz_id}
+        history = {this.props.history}
+        deleteQuestion = {(id) => this.deleteQuestion(id)}
+        openSnackbar = {() => this.openSnackbar()}
+      />)
     })}
     return questions
   }

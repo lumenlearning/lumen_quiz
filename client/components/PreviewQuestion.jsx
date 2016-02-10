@@ -22,11 +22,6 @@ const styles = {
     width:'2rem', 
     height:'2rem'
   },
-  appBar: {
-    backgroundColor: '#fff',
-    position: 'relative',
-    marginBottom: '10px'
-  },
   paper: {
     padding: '15px',
     margin: '10px',
@@ -115,9 +110,15 @@ export default class PreviewQuestion extends React.Component {
   }
 
   render() {
+    let dynamicStyles = {  
+      backgroundColor: '#fff',
+      position: 'relative',
+      marginBottom: '10px',
+      border: this.state.content === '' ? '2px solid #c83637' : 'transparent'
+    }
     return (
       <div>
-        <Paper zDepth={2} style={styles.appBar}>
+        <Paper zDepth={2} style={dynamicStyles}>
           <div className="question-preview-wrapper">
             <div className="edit-buttons">
               <EditIcon 
