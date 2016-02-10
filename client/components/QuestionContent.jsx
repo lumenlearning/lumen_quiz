@@ -51,7 +51,7 @@ export default class QuestionContent extends React.Component {
             font_formats: 'Raleway, Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n'
           }}
           onChange ={(text) => this.handleQuestion(text)}
-          className="form-control" 
+          className="tiny-form" 
         />
       </div>
     )

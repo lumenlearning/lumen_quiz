@@ -26,7 +26,7 @@ export default class GuidSearch extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.question_id !== nextProps.question_id) {
       base.removeBinding(this.ref);
-      this.ref = base.syncState(`${this.props.quiz_id}/questions/${this.props.question_id}/guid`, {
+      this.ref = base.syncState(`${this.props.quiz_id}/questions/${nextProps.question_id}/guid`, {
         context: this,
         state: 'guid',
         asArray: false
@@ -34,12 +34,12 @@ export default class GuidSearch extends React.Component {
     }
   }
 
-  placeholder() {
-    return this.state.guid.short_title ? `Learning Outcome: ${this.state.guid.short_title}` : 'Click to Add Learning Outcome'
-  }
-
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  placeholder() {
+    return this.state.guid.short_title ? `Learning Outcome: ${this.state.guid.short_title}` : 'Click to Add Learning Outcome'
   }
 
   render() {
@@ -102,6 +102,11 @@ export default class GuidSearch extends React.Component {
     this.setState({
       guid: obj,
       closeBtn: false
+    })
+    this.refs.typeahead.setState({
+      entryValue: '',
+      selection: null,
+      visible: []
     })
   }
 }

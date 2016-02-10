@@ -6,7 +6,8 @@ module.exports = function (config) {
     singleRun: true,
     frameworks: [ 'jasmine' ],
     files: [
-      'tests.webpack.js'
+      'tests.webpack.js',
+      "https://tinymce.cachefly.net/4.2/tinymce.min.js"
     ],
     preprocessors: {
       'tests.webpack.js': [ 'webpack', 'sourcemap' ]
