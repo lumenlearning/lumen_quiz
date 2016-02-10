@@ -31,6 +31,7 @@ export default class CreateQuiz extends React.Component {
             ref={"quizTitle"}
             underlineStyle={{borderColor:'rgba(0,0,0,0.2)'}}
             underlineFocusStyle={{borderColor:'#4bbf6b'}}
+            className='title-input'
           />
           <br /><br />
           <RaisedButton
@@ -39,6 +40,7 @@ export default class CreateQuiz extends React.Component {
             onClick={() => this.handleSubmit()}
             backgroundColor={'#4bbf6b'}
             labelColor={'#fff'}
+            className='submit-btn'
           />
       </div>
     )
