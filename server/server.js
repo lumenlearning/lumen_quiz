@@ -13,7 +13,7 @@ module.exports = new class Server {
 
         server.connection(
             {
-                port: 8080
+                port: 80
             }
         );
 
