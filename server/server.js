@@ -12,9 +12,9 @@ module.exports = new class Server {
         this.start = this.start.bind(this);
 
         server.connection(
-            {
+            /*{
                 port: 8080
-            }
+            }*/
         );
 
         server.register(require('./routes/router.js'), (err) => {
